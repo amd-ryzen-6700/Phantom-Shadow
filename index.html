@@ -1,0 +1,2709 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIS Phantom Shadow — FLL Team</title>
+    <link rel="icon" href="images/Tis Jesters Logo.png" type="image/png">
+    <link rel="shortcut icon" href="images/TIS Phantom.png" type="image/png">
+    <link rel="apple-touch-icon" href="images/Tis Jesters Logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #e25535;
+            --amber: #f0a030;
+            --gold: #ffd699;
+            --rose: #e0506a;
+            --terracotta: #d07040;
+
+            --bg-deep: #060302;
+            --bg-warm: #0e0806;
+
+            --glass-bg: rgba(255, 190, 140, .025);
+            --glass-bg-hover: rgba(255, 190, 140, .06);
+            --glass-border: rgba(255, 190, 130, .08);
+            --glass-border-hover: rgba(255, 175, 110, .22);
+            --glass-highlight: rgba(255, 235, 210, .09);
+            --glass-inner: rgba(255, 180, 120, .018);
+            --glass-blur: 18px;
+
+            --text-primary: #faf0e6;
+            --text-secondary: #b8a898;
+            --text-dim: #7a6a5a;
+
+            --radius-sm: 16px;
+            --radius-md: 24px;
+            --radius-lg: 32px;
+
+            --ease-out-expo: cubic-bezier(.16, 1, .3, 1);
+            --ease-spring: cubic-bezier(.34, 1.56, .64, 1);
+            --micro: cubic-bezier(.4, 0, .2, 1);
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 180, 120, .12) transparent;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 180, 120, .12);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 180, 120, .25);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        body.menu-open {
+            overflow: hidden;
+        }
+
+        .bg-blobs {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+            contain: strict;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: .45;
+            will-change: transform;
+        }
+
+        .blob-1 {
+            width: 560px;
+            height: 560px;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            top: -8%;
+            left: -4%;
+            animation: drift-a 28s ease-in-out infinite;
+        }
+
+        .blob-2 {
+            width: 480px;
+            height: 480px;
+            background: radial-gradient(circle, var(--amber) 0%, transparent 70%);
+            top: 35%;
+            right: -6%;
+            animation: drift-b 24s ease-in-out infinite;
+        }
+
+        .blob-3 {
+            width: 520px;
+            height: 520px;
+            background: radial-gradient(circle, var(--terracotta) 0%, transparent 70%);
+            bottom: 0;
+            left: 18%;
+            animation: drift-c 30s ease-in-out infinite;
+        }
+
+        .blob-4 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--rose) 0%, transparent 70%);
+            top: 60%;
+            left: 50%;
+            opacity: .25;
+            animation: drift-d 26s ease-in-out infinite;
+        }
+
+        @keyframes drift-a {
+
+            0%,
+            100% {
+                transform: translate(var(--px, 0px), var(--py, 0px)) scale(1);
+            }
+
+            50% {
+                transform: translate(calc(60px + var(--px, 0px)), calc(-40px + var(--py, 0px))) scale(1.06);
+            }
+        }
+
+        @keyframes drift-b {
+
+            0%,
+            100% {
+                transform: translate(var(--px, 0px), var(--py, 0px)) scale(1);
+            }
+
+            50% {
+                transform: translate(calc(-50px + var(--px, 0px)), calc(45px + var(--py, 0px))) scale(1.08);
+            }
+        }
+
+        @keyframes drift-c {
+
+            0%,
+            100% {
+                transform: translate(var(--px, 0px), var(--py, 0px)) scale(1);
+            }
+
+            50% {
+                transform: translate(calc(40px + var(--px, 0px)), calc(50px + var(--py, 0px))) scale(.95);
+            }
+        }
+
+        @keyframes drift-d {
+
+            0%,
+            100% {
+                transform: translate(var(--px, 0px), var(--py, 0px)) scale(1);
+            }
+
+            50% {
+                transform: translate(calc(-30px + var(--px, 0px)), calc(-35px + var(--py, 0px))) scale(1.1);
+            }
+        }
+
+        .vignette {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background: radial-gradient(ellipse at center, transparent 50%, var(--bg-deep) 100%);
+            opacity: .6;
+        }
+
+        .noise-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            opacity: .035;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-size: 256px 256px;
+        }
+
+        .cursor-glow {
+            position: fixed;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(240, 160, 48, .07) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity .4s;
+        }
+
+        body:hover .cursor-glow {
+            opacity: 1;
+        }
+
+        #loading-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-deep);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity .7s var(--ease-out-expo), visibility .7s;
+        }
+
+        #loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .glass-loader {
+            width: 56px;
+            height: 56px;
+            border: 2px solid var(--glass-border);
+            border-top-color: var(--amber);
+            border-radius: 50%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            animation: spin .9s linear infinite;
+            box-shadow: 0 0 30px rgba(240, 160, 48, .18);
+        }
+
+        .loader-text {
+            margin-top: 20px;
+            font-family: 'Sora', sans-serif;
+            font-size: .82rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            animation: pulse-text 2s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse-text {
+
+            0%,
+            100% {
+                opacity: .35;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+            -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, .45),
+                inset 0 1px 0 var(--glass-highlight),
+                inset 0 0 40px var(--glass-inner),
+                inset 0 -1px 0 rgba(0, 0, 0, .15);
+            position: relative;
+            overflow: hidden;
+            transition: all .5s var(--ease-out-expo);
+        }
+
+        .glass>.glass-shimmer {
+            position: absolute;
+            top: 0;
+            left: -110%;
+            width: 55%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 220, 170, .05), transparent);
+            transition: left .75s var(--ease-out-expo);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .glass:hover>.glass-shimmer {
+            left: 110%;
+        }
+
+        .glass>.glass-highlight-bar {
+            position: absolute;
+            top: 0;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 210, 160, .18), transparent);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .glass:hover {
+            background: var(--glass-bg-hover);
+            border-color: var(--glass-border-hover);
+            box-shadow:
+                0 20px 56px rgba(0, 0, 0, .55),
+                0 0 70px rgba(240, 160, 48, .045),
+                inset 0 1px 0 rgba(255, 235, 210, .14),
+                inset 0 0 50px rgba(255, 180, 120, .025);
+            transform: translateY(-4px);
+        }
+
+        .glass-accent {
+            background: rgba(255, 190, 140, .04);
+            border-color: rgba(255, 190, 130, .12);
+            box-shadow:
+                0 12px 40px rgba(0, 0, 0, .5),
+                0 0 60px rgba(240, 160, 48, .03),
+                inset 0 1px 0 rgba(255, 235, 210, .12),
+                inset 0 0 60px rgba(255, 180, 120, .02);
+        }
+
+        nav {
+            position: fixed;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: rgba(14, 8, 6, .65);
+            backdrop-filter: blur(28px) saturate(180%);
+            -webkit-backdrop-filter: blur(28px) saturate(180%);
+            border: 1px solid rgba(255, 190, 130, .07);
+            border-radius: 100px;
+            padding: 11px 28px;
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, .5),
+                0 0 40px rgba(240, 160, 48, .025),
+                inset 0 1px 0 rgba(255, 230, 200, .07);
+            transition: all .4s var(--ease-out-expo);
+            max-width: 92vw;
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-decoration: none;
+            background: linear-gradient(135deg, var(--primary), var(--amber));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            white-space: nowrap;
+            margin-right: 14px;
+        }
+
+        .nav-divider {
+            width: 1px;
+            height: 18px;
+            background: rgba(255, 190, 130, .1);
+            margin: 0 6px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2px;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: .82rem;
+            font-weight: 500;
+            padding: 7px 13px;
+            border-radius: 100px;
+            transition: all .3s var(--micro);
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            width: 0;
+            height: 1.5px;
+            background: var(--amber);
+            border-radius: 2px;
+            transition: all .3s var(--ease-out-expo);
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 55%;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+            background: rgba(255, 190, 130, .06);
+        }
+
+        .nav-links a.active {
+            color: var(--amber);
+            background: rgba(240, 160, 48, .1);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.15rem;
+            cursor: pointer;
+            padding: 7px;
+            border-radius: 8px;
+            transition: background .3s;
+        }
+
+        .mobile-toggle:hover {
+            background: rgba(255, 190, 130, .08);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            padding: 80px 24px 32px;
+            background: rgba(10, 6, 4, .92);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-bottom: 1px solid rgba(255, 190, 130, .08);
+            transform: translateY(-100%);
+            transition: transform .5s var(--ease-out-expo);
+            max-height: 100vh;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.open {
+            transform: translateY(0);
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 14px 0;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 190, 130, .04);
+            transition: color .3s, padding-left .3s var(--ease-spring);
+        }
+
+        .mobile-menu a:hover {
+            color: var(--amber);
+            padding-left: 8px;
+        }
+
+        .main-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        section[id] {
+            scroll-margin-top: 100px;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 20px 80px;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            border-radius: 100px;
+            background: rgba(240, 160, 48, .06);
+            border: 1px solid rgba(240, 160, 48, .16);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            font-size: .78rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 32px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp .8s .5s var(--ease-out-expo) forwards;
+        }
+
+        .hero-badge.float-active {
+            animation: micro-float 4s ease-in-out infinite;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-badge .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--amber);
+            border-radius: 50%;
+            animation: pulse-dot 2s ease-in-out infinite;
+            box-shadow: 0 0 8px rgba(240, 160, 48, .5);
+        }
+
+        @keyframes pulse-dot {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: .35;
+                transform: scale(.55);
+            }
+        }
+
+        @keyframes micro-float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-4px);
+            }
+        }
+
+        .hero-title {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(2.8rem, 7vw, 5.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            margin-bottom: 28px;
+            text-transform: uppercase;
+            width: 100%;
+            max-width: 900px;
+            overflow: visible;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .hero-title .word-wrap {
+            display: inline-flex;
+            margin: 0 0.12em;
+            flex-shrink: 0;
+        }
+
+        .hero-title .char {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(60px) rotateX(80deg);
+            animation: charIn .7s var(--ease-out-expo) forwards;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            transition: text-shadow .3s, transform .3s var(--ease-spring);
+        }
+
+        .hero-title .char:hover {
+            text-shadow: 0 0 20px rgba(240, 160, 48, .25);
+            transform: translateY(-3px) scale(1.08);
+        }
+
+        .hero-title .word-phantom .char,
+        .hero-title .word-shadow .char {
+            background: linear-gradient(135deg, var(--primary), var(--amber), var(--gold));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-title .word-phantom .char.anim-ready,
+        .hero-title .word-shadow .char.anim-ready {
+            animation: gradShift 5s ease-in-out infinite;
+            opacity: 1;
+            transform: translateY(0) rotateX(0);
+        }
+
+        @keyframes charIn {
+            to {
+                opacity: 1;
+                transform: translateY(0) rotateX(0);
+            }
+        }
+
+        @keyframes gradShift {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .hero-tagline {
+            font-size: clamp(.95rem, 2.5vw, 1.25rem);
+            color: var(--text-secondary);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 400;
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp .8s 1.2s var(--ease-out-expo) forwards;
+        }
+
+        .hero-divider {
+            width: 80px;
+            height: 3px;
+            border-radius: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--amber), var(--terracotta));
+            background-size: 200% 100%;
+            animation: fadeUp .6s 1.4s var(--ease-out-expo) forwards, shimmer 3s 2s ease-in-out infinite;
+            opacity: 0;
+            transform: translateY(20px);
+            margin-bottom: 24px;
+        }
+
+        @keyframes shimmer {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .hero-values {
+            font-size: .95rem;
+            color: var(--text-dim);
+            letter-spacing: 2px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp .6s 1.6s var(--ease-out-expo) forwards;
+        }
+
+        .hero-values .sep {
+            color: var(--amber);
+            margin: 0 12px;
+            font-size: .55rem;
+            vertical-align: middle;
+        }
+
+        .hero-scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            animation: fadeUp .6s 2s var(--ease-out-expo) forwards;
+        }
+
+        .hero-scroll-hint span {
+            font-size: .68rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-dim);
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 36px;
+            background: linear-gradient(to bottom, var(--amber), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollPulse {
+
+            0%,
+            100% {
+                opacity: .25;
+                transform: scaleY(.4);
+                transform-origin: top;
+            }
+
+            50% {
+                opacity: 1;
+                transform: scaleY(1);
+            }
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: .72rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 14px;
+            padding: 6px 16px;
+            border-radius: 100px;
+            background: rgba(240, 160, 48, .06);
+            border: 1px solid rgba(240, 160, 48, .12);
+        }
+
+        .section-title {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 14px;
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+            color: var(--text-dim);
+            max-width: 580px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-text {
+            font-size: 1.02rem;
+            line-height: 1.9;
+            color: var(--text-secondary);
+            padding: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-quote-mark {
+            position: absolute;
+            top: 10px;
+            left: 18px;
+            font-family: 'Sora', serif;
+            font-size: 5.5rem;
+            color: rgba(240, 160, 48, .06);
+            line-height: 1;
+            pointer-events: none;
+            z-index: 0;
+            user-select: none;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+            gap: 28px;
+            align-items: stretch;
+        }
+
+        .team-card {
+            padding: 40px 28px 34px;
+            text-align: center;
+            border-radius: var(--radius-lg);
+            position: relative;
+            overflow: hidden;
+            transition: all .5s var(--ease-out-expo);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100%;
+            isolation: isolate;
+        }
+
+        .team-card:hover {
+            transform: translateY(-8px) scale(1.008);
+        }
+
+        .team-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg, transparent 40%, rgba(240, 160, 48, .15) 50%, transparent 60%);
+            background-size: 300% 300%;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity .5s var(--ease-out-expo);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .team-card:hover::before {
+            opacity: 1;
+            animation: borderGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes borderGlow {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .card-egg {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+            border-radius: inherit;
+        }
+
+        .card-egg,
+        .card-egg * {
+            pointer-events: none;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 3;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+
+        .card-photo {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 22px;
+            border-radius: 50%;
+            overflow: visible;
+            position: relative;
+            border: 2px solid rgba(255, 190, 130, .1);
+            box-shadow: 0 0 40px rgba(240, 160, 48, .08);
+            transition: all .5s var(--ease-out-expo);
+            flex-shrink: 0;
+        }
+
+        .card-photo-ring {
+            position: absolute;
+            inset: -8px;
+            border: 2px solid rgba(240, 160, 48, .0);
+            border-radius: 50%;
+            transition: all .5s var(--ease-out-expo);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .team-card:hover .card-photo {
+            border-color: rgba(240, 160, 48, .35);
+            box-shadow: 0 0 50px rgba(240, 160, 48, .15), 0 0 100px rgba(240, 160, 48, .04);
+            transform: scale(1.04);
+        }
+
+        .team-card:hover .card-photo-ring {
+            border-color: rgba(240, 160, 48, .15);
+            inset: -12px;
+        }
+
+        .card-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            border-radius: 50%;
+            clip-path: circle(50% at 50% 50%);
+            transition: transform .5s var(--ease-out-expo);
+            background: rgba(255, 190, 130, .04);
+        }
+
+        .team-card:hover .card-photo img {
+            transform: scale(1.06);
+        }
+
+        .card-name {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+            transition: color .3s;
+        }
+
+        .team-card:hover .card-name {
+            color: var(--gold);
+        }
+
+        .card-role {
+            font-size: .82rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--primary), var(--amber));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 18px;
+        }
+
+        .card-bio {
+            font-size: .9rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            padding: 18px;
+            background: rgba(255, 190, 130, .015);
+            border: 1px solid rgba(255, 190, 130, .04);
+            border-radius: var(--radius-sm);
+            transition: border-color .3s var(--micro), background .3s;
+            width: 100%;
+            margin-top: auto;
+            text-align: left;
+        }
+
+        .team-card:hover .card-bio {
+            border-color: rgba(255, 190, 130, .1);
+            background: rgba(255, 190, 130, .025);
+        }
+
+        /* Nathaniel monster drop-down hover */
+        .card-nathaniel .card-egg {
+            z-index: 4;
+        }
+
+        .card-nathaniel .card-egg-a {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: clamp(130px, 48%, 190px);
+            height: 145px;
+            background: url("images/Goop.png") no-repeat center top / contain;
+            opacity: 0;
+            transform: translate(-50%, -110%) scale(.88);
+            transform-origin: top center;
+            transition:
+                transform .7s var(--ease-spring),
+                opacity .25s ease;
+            filter: drop-shadow(0 10px 18px rgba(0, 0, 0, .55));
+            will-change: transform, opacity;
+        }
+
+        .card-nathaniel:hover .card-egg-a,
+        .card-nathaniel:focus-within .card-egg-a {
+            opacity: .9;
+            transform: translate(-50%, -5px) scale(1);
+        }
+
+        .card-kevin .card-egg-a,
+        .card-kevin .card-egg-b {
+            position: absolute;
+            bottom: -50px;
+            width: 50px;
+            height: 50px;
+            background: url('images/Bok Choy.png') no-repeat center / contain;
+            opacity: 0;
+            transition: all 0.7s var(--ease-spring);
+        }
+
+        .card-kevin .card-egg-a {
+            left: 15%;
+            transform: translateY(20px) scale(0.4) rotate(-15deg);
+        }
+
+        .card-kevin .card-egg-b {
+            right: 15%;
+            left: auto;
+            transform: translateY(20px) scale(0.6) rotate(20deg);
+            transition-delay: 0.1s;
+        }
+
+        .card-kevin:hover .card-egg-a {
+            opacity: 0.2;
+            transform: translateY(-30px) scale(1.3) rotate(-5deg);
+        }
+
+        .card-kevin:hover .card-egg-b {
+            opacity: 0.2;
+            transform: translateY(-40px) scale(1.6) rotate(10deg);
+        }
+
+        .card-liam:hover {
+            border-color: rgba(74, 246, 38, 0.16);
+            box-shadow:
+                0 24px 64px rgba(0, 0, 0, 0.6),
+                0 0 90px rgba(74, 246, 38, 0.05),
+                inset 0 1px 0 rgba(255, 235, 210, 0.18),
+                inset 0 0 80px rgba(74, 246, 38, 0.015);
+        }
+
+        .card-liam .card-egg-a {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            padding: 14px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-size: 0.92rem;
+            line-height: 1.5;
+            word-break: break-all;
+            color: rgba(74, 246, 38, 0.14);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+
+        .card-liam:hover .card-egg-a {
+            opacity: 1;
+        }
+
+        .card-liam .card-egg-a::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at 50% 22%,
+                    rgba(6, 3, 2, 0) 0 118px,
+                    rgba(6, 3, 2, 0.28) 145px,
+                    rgba(6, 3, 2, 0.08) 180px),
+                linear-gradient(180deg,
+                    rgba(6, 3, 2, 0.04),
+                    rgba(6, 3, 2, 0.16));
+        }
+
+        .card-liam .card-content::before {
+            content: '';
+            position: absolute;
+            left: 14px;
+            right: 14px;
+            bottom: 14px;
+            height: 46%;
+            border-radius: 22px;
+            background: linear-gradient(
+                180deg,
+                rgba(6, 3, 2, 0.16) 0%,
+                rgba(6, 3, 2, 0.52) 34%,
+                rgba(6, 3, 2, 0.72) 100%
+            );
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .card-liam:hover .card-content::before {
+            opacity: 1;
+        }
+
+        .card-liam .card-photo,
+        .card-liam .card-name,
+        .card-liam .card-role,
+        .card-liam .card-bio {
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-liam .card-name {
+            text-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
+        }
+
+        .card-liam .card-role {
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+        }
+
+        .card-liam .card-bio {
+            background: rgba(255, 190, 130, 0.02);
+            border-color: rgba(74, 246, 38, 0.08);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+        }
+
+        .card-liam:hover .card-bio {
+            background: rgba(8, 5, 4, 0.42);
+            border-color: rgba(74, 246, 38, 0.14);
+        }
+
+        .card-liam:hover .card-photo {
+            border-color: rgba(74, 246, 38, 0.22);
+            box-shadow:
+                0 0 50px rgba(74, 246, 38, 0.12),
+                0 0 100px rgba(240, 160, 48, 0.04);
+        }
+
+        .card-liam:hover .card-photo-ring {
+            border-color: rgba(74, 246, 38, 0.14);
+        }
+
+        .card-liam .card-egg-scroll {
+            display: block;
+            animation: liamBinary 14s linear infinite;
+            filter: blur(0.15px);
+        }
+
+        @keyframes liamBinary {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-50%);
+            }
+        }
+
+        /* KIAN DUMBBELL FIX: Now 2 dumbbells properly positioned left and right */
+        .card-kian .card-egg-a,
+        .card-kian .card-egg-b {
+            position: absolute;
+            width: 85px;
+            height: 85px;
+            background: url('images/Dumbell.png') no-repeat center / contain;
+            opacity: 0;
+            transition: opacity 0.4s var(--ease-out-expo);
+        }
+
+        .card-kian .card-egg-a {
+            top: 20%;
+            right: -10px;
+            transform: translateY(30px) rotate(0deg);
+        }
+
+        .card-kian .card-egg-b {
+            top: 20%;
+            left: -10px;
+            transform: translateY(30px) rotate(0deg);
+        }
+
+        .card-kian:hover .card-egg-a {
+            opacity: 0.35;
+            animation: kianLiftRight 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+        }
+
+        .card-kian:hover .card-egg-b {
+            opacity: 0.35;
+            animation: kianLiftLeft 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate 0.2s;
+        }
+
+        @keyframes kianLiftRight {
+            0% { transform: translateY(25px) rotate(-15deg) scale(1); }
+            100% { transform: translateY(-25px) rotate(15deg) scale(1.1); }
+        }
+
+        @keyframes kianLiftLeft {
+            0% { transform: translateY(25px) rotate(15deg) scale(1); }
+            100% { transform: translateY(-25px) rotate(-15deg) scale(1.1); }
+        }
+
+        .card-conner .card-egg-a,
+        .card-conner .card-egg-b {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: 100%;
+            left: -50%;
+            border-radius: 40%;
+            transition: top 1s var(--ease-out-expo), opacity 0.5s;
+            opacity: 0;
+        }
+
+        .card-conner .card-egg-a {
+            background: rgba(240, 160, 48, 0.1);
+        }
+
+        .card-conner .card-egg-b {
+            background: rgba(226, 85, 53, 0.08);
+            border-radius: 45%;
+            transition-delay: 0.1s;
+        }
+
+        .card-conner:hover .card-egg-a {
+            top: 40%;
+            opacity: 1;
+            animation: connerJuice 6s linear infinite;
+        }
+
+        .card-conner:hover .card-egg-b {
+            top: 50%;
+            opacity: 1;
+            animation: connerJuice 4s linear infinite reverse;
+        }
+
+        @keyframes connerJuice {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .robot-section {
+            text-align: center;
+        }
+
+        .robot-gallery {
+            max-width: 860px;
+            margin: 0 auto 34px;
+        }
+
+        .robot-frame {
+            max-width: 620px;
+            margin: 0 auto 22px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid rgba(255, 190, 130, .07);
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, .5),
+                0 0 80px rgba(240, 160, 48, .06);
+            transition: all .5s var(--ease-out-expo);
+            position: relative;
+        }
+
+        .robot-frame:hover {
+            transform: scale(1.02) translateY(-4px);
+            border-color: rgba(240, 160, 48, .25);
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, .6),
+                0 0 120px rgba(240, 160, 48, .08);
+        }
+
+        .robot-frame-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(6, 3, 2, .45) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .robot-frame img {
+            width: 100%;
+            display: block;
+            transition: transform .5s var(--ease-out-expo);
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            background: rgba(255, 190, 130, .02);
+        }
+
+        .robot-frame:hover img {
+            transform: scale(1.04);
+        }
+
+        .robot-thumbs {
+            padding: 18px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(88px, 1fr));
+            gap: 14px;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .robot-thumbs>*:not(.glass-shimmer):not(.glass-highlight-bar) {
+            position: relative;
+            z-index: 2;
+        }
+
+        .robot-thumb {
+            appearance: none;
+            border: 1px solid rgba(255, 190, 130, .08);
+            background: rgba(255, 190, 130, .02);
+            border-radius: 18px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all .35s var(--ease-out-expo);
+            aspect-ratio: 1 / 1;
+            padding: 0;
+        }
+
+        .robot-thumb img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        .robot-thumb:hover {
+            transform: translateY(-3px);
+            border-color: rgba(240, 160, 48, .2);
+            box-shadow: 0 0 20px rgba(240, 160, 48, .08);
+        }
+
+        .robot-thumb.active {
+            border-color: rgba(240, 160, 48, .35);
+            box-shadow: 0 0 30px rgba(240, 160, 48, .14);
+            transform: translateY(-2px);
+        }
+
+        .robot-caption {
+            margin-top: 16px;
+            color: var(--text-dim);
+            font-size: .9rem;
+            letter-spacing: 1px;
+        }
+
+        .robot-desc {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 36px;
+        }
+
+        .robot-desc p {
+            font-size: 1.02rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .robot-name {
+            color: var(--amber);
+            font-weight: 600;
+            text-shadow: 0 0 18px rgba(240, 160, 48, .25);
+        }
+
+        .achievement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+            align-items: stretch;
+        }
+
+        .achievement-card {
+            padding: 44px 30px;
+            text-align: center;
+            border-radius: var(--radius-lg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .achievement-icon {
+            width: 68px;
+            height: 68px;
+            margin: 0 auto 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(226, 85, 53, .08), rgba(240, 160, 48, .08));
+            border: 1px solid rgba(240, 160, 48, .12);
+            transition: all .45s var(--ease-spring);
+            animation: icon-breathe 3s ease-in-out infinite;
+        }
+
+        @keyframes icon-breathe {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.04);
+            }
+        }
+
+        .achievement-card:hover .achievement-icon {
+            transform: scale(1.12) rotate(8deg);
+            background: linear-gradient(135deg, rgba(226, 85, 53, .14), rgba(240, 160, 48, .14));
+            border-color: rgba(240, 160, 48, .25);
+            box-shadow: 0 0 35px rgba(240, 160, 48, .12);
+            animation: none;
+        }
+
+        .achievement-icon i {
+            font-size: 1.6rem;
+            background: linear-gradient(135deg, var(--primary), var(--amber));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .achievement-card h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .achievement-card p {
+            color: var(--text-secondary);
+            font-size: .92rem;
+            line-height: 1.6;
+            margin-top: auto;
+        }
+
+        .timeline-container {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg,
+                    transparent,
+                    rgba(240, 160, 48, .25) 10%,
+                    rgba(208, 112, 64, .25) 50%,
+                    rgba(226, 85, 53, .2) 90%,
+                    transparent);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 52px;
+            display: flex;
+        }
+
+        .timeline-item:nth-child(odd) {
+            justify-content: flex-start;
+            padding-right: calc(50% + 36px);
+        }
+
+        .timeline-item:nth-child(even) {
+            justify-content: flex-end;
+            padding-left: calc(50% + 36px);
+        }
+
+        .timeline-card {
+            padding: 22px 26px;
+            border-radius: var(--radius-md);
+            max-width: 380px;
+            width: 100%;
+        }
+
+        .timeline-card:hover {
+            transform: translateY(-4px) scale(1.02);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 28px;
+            width: 14px;
+            height: 14px;
+            background: var(--amber);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            box-shadow: 0 0 18px rgba(240, 160, 48, .45);
+        }
+
+        .timeline-dot-ring {
+            position: absolute;
+            inset: -5px;
+            border: 2px solid rgba(240, 160, 48, .25);
+            border-radius: 50%;
+            animation: ring-pulse 2.5s ease-in-out infinite;
+        }
+
+        @keyframes ring-pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: .6;
+            }
+
+            50% {
+                transform: scale(1.8);
+                opacity: 0;
+            }
+        }
+
+        .timeline-date {
+            font-size: .78rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 6px;
+        }
+
+        .timeline-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .timeline-desc {
+            font-size: .9rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+
+        footer {
+            position: relative;
+            z-index: 2;
+            padding: 80px 24px 40px;
+            text-align: center;
+        }
+
+        .footer-glass {
+            max-width: 580px;
+            margin: 0 auto;
+            padding: 44px 36px;
+            border-radius: var(--radius-lg);
+        }
+
+        .footer-logo {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.7rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--primary), var(--amber), var(--gold));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradShift 5s ease-in-out infinite;
+            margin-bottom: 10px;
+        }
+
+        .footer-tagline {
+            color: var(--text-secondary);
+            font-size: .92rem;
+            margin-bottom: 6px;
+        }
+
+        .footer-motto {
+            font-size: .78rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 28px;
+        }
+
+        .footer-divider {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 190, 130, .15), transparent);
+            margin: 0 auto 20px;
+        }
+
+        .copyright {
+            font-size: .78rem;
+            color: var(--text-dim);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all .9s var(--ease-out-expo);
+        }
+
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-70px);
+            transition: all .9s var(--ease-out-expo);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(70px);
+            transition: all .9s var(--ease-out-expo);
+        }
+
+        .reveal-left.revealed,
+        .reveal-right.revealed {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(.88);
+            transition: all .9s var(--ease-out-expo);
+        }
+
+        .reveal-scale.revealed {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .stagger-1 {
+            transition-delay: .1s;
+        }
+
+        .stagger-2 {
+            transition-delay: .2s;
+        }
+
+        .stagger-3 {
+            transition-delay: .3s;
+        }
+
+        .stagger-4 {
+            transition-delay: .4s;
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            bottom: 18px;
+            right: 18px;
+            z-index: 999;
+            padding: 7px 14px;
+            border-radius: 100px;
+            background: rgba(14, 8, 6, .7);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 190, 130, .06);
+            font-size: .68rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            transition: all .3s;
+            pointer-events: none;
+        }
+
+        .scroll-indicator.active {
+            color: var(--amber);
+            border-color: rgba(240, 160, 48, .15);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 18px;
+            left: 18px;
+            z-index: 999;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(14, 8, 6, .7);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 190, 130, .08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-dim);
+            font-size: .85rem;
+            transition: all .35s var(--ease-spring);
+            opacity: 0;
+            transform: translateY(12px);
+            pointer-events: none;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        .back-to-top:hover {
+            color: var(--amber);
+            border-color: rgba(240, 160, 48, .25);
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(240, 160, 48, .1);
+        }
+
+        @media (min-width: 1080px) {
+            .team-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+
+            .team-card {
+                grid-column: span 2;
+            }
+
+            .team-card:nth-child(4) {
+                grid-column: 2 / span 2;
+            }
+
+            .team-card:nth-child(5) {
+                grid-column: 4 / span 2;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+            }
+
+            .blob {
+                animation: none !important;
+            }
+
+            .reveal,
+            .reveal-left,
+            .reveal-right,
+            .reveal-scale {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                top: 10px;
+                padding: 9px 18px;
+                border-radius: var(--radius-sm);
+            }
+
+            .nav-divider {
+                display: none;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero {
+                padding: 100px 20px 60px;
+                min-height: 88vh;
+            }
+
+            .hero-title {
+                font-size: clamp(2.2rem, 10vw, 3.5rem);
+            }
+
+            .team-grid,
+            .achievement-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-card {
+                padding: 32px 22px 28px;
+            }
+
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                padding-left: 44px;
+                padding-right: 0;
+                justify-content: flex-start;
+            }
+
+            .timeline-line,
+            .timeline-dot {
+                left: 14px;
+            }
+
+            .about-text,
+            .robot-desc,
+            .footer-glass {
+                padding: 26px 22px;
+            }
+
+            section {
+                padding: 56px 0;
+            }
+
+            .scroll-indicator {
+                font-size: .6rem;
+                padding: 5px 10px;
+            }
+
+            .robot-thumbs {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: clamp(1.8rem, 12vw, 2.6rem);
+            }
+
+            .hero-title .word-wrap {
+                margin: 0 0.08em;
+            }
+
+            .card-photo {
+                width: 120px;
+                height: 120px;
+            }
+
+            .robot-thumbs {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+                padding: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="loading-screen">
+        <div class="glass-loader"></div>
+        <div class="loader-text">Loading</div>
+    </div>
+
+    <div class="bg-blobs" aria-hidden="true">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="blob blob-4"></div>
+    </div>
+
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="noise-overlay" aria-hidden="true"></div>
+    <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+    <div id="sparkLayer" aria-hidden="true" style="position:fixed;inset:0;pointer-events:none;z-index:9999"></div>
+
+    <nav id="mainNav">
+        <div class="nav-inner">
+            <a href="#home" class="logo">TIS Phantom Shadow</a>
+            <div class="nav-divider"></div>
+
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#robot">Robot</a></li>
+                <li><a href="#achievements">Achievements</a></li>
+                <li><a href="#timeline">Timeline</a></li>
+            </ul>
+
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#team">Team</a>
+        <a href="#robot">Robot</a>
+        <a href="#achievements">Achievements</a>
+        <a href="#timeline">Timeline</a>
+    </div>
+
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <div class="scroll-indicator active" id="scrollIndicator">● Auto-scroll | Press E to toggle</div>
+
+    <div class="main-content">
+        <section class="hero" id="home">
+            <div class="hero-badge" id="heroBadge">
+                <span class="dot"></span>
+                FLL Robotics Team 2026
+            </div>
+
+            <h1 class="hero-title" id="heroTitle">TIS Phantom Shadow</h1>
+            <p class="hero-tagline">2025 Tested Us, 2026 Defines Us</p>
+            <div class="hero-divider"></div>
+            <p class="hero-values">
+                Innovation <span class="sep">◆</span> Excellence <span class="sep">◆</span> Teamwork
+            </p>
+
+            <div class="hero-scroll-hint">
+                <span>Scroll</span>
+                <div class="scroll-line"></div>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="section-header reveal">
+                <span class="section-label">Who We Are</span>
+                <h2 class="section-title">About Us</h2>
+            </div>
+
+            <div class="about-content glass glass-accent reveal stagger-1">
+                <span class="glass-shimmer"></span>
+                <span class="glass-highlight-bar"></span>
+                <span class="about-quote-mark" aria-hidden="true">&ldquo;</span>
+                <p class="about-text">
+                    TIS Phantom Shadow had a demanding and unforgettable 2025 season, earning the opportunity to compete at both Regionals and Nationals through months of hard work, innovation, and teamwork. Reaching those competitions was a major achievement, but the journey was far from easy. At both events, the team faced setbacks — the robot did not always perform as planned, the pressure was high, and unexpected problems arose at critical moments. These challenges were frustrating, but they pushed the team to think deeper, adapt faster, and support one another through difficult situations. Rather than viewing those moments as defeats, TIS Phantom Shadow chose to treat them as valuable lessons. The 2025 season revealed important areas for improvement in preparation, strategy, and execution. With renewed motivation and a clearer vision, TIS Phantom Shadow has decided to return in 2026 stronger than ever, ready to learn from the past, sharpen their skills, and strive for greater success together.
+                </p>
+            </div>
+        </section>
+
+        <section id="team">
+            <div class="section-header reveal">
+                <span class="section-label">The Squad</span>
+                <h2 class="section-title">Meet Our Team</h2>
+                <p class="section-subtitle">Five minds, one mission — engineering tomorrow's solutions today.</p>
+            </div>
+
+            <div class="team-grid">
+                <div class="team-card glass reveal stagger-1 card-nathaniel">
+                    <span class="glass-shimmer"></span>
+                    <span class="glass-highlight-bar"></span>
+
+                    <div class="card-egg" aria-hidden="true">
+                        <div class="card-egg-a"></div>
+                    </div>
+
+                    <div class="card-content">
+                        <div class="card-photo">
+                            <div class="card-photo-ring"></div>
+                            <img src="images/Nathaniel.png" alt="Nathaniel Person" loading="lazy">
+                        </div>
+                        <h3 class="card-name">Nathaniel Person</h3>
+                        <p class="card-role">Lead Builder · Lead Researcher</p>
+                        <p class="card-bio">
+                            My name is Nathaniel, and I am a builder, innovation team member, and researcher for the TIS Phantom Shadow FLL team. I help design and build the robot while also researching ideas and contributing to our innovation project. I enjoy learning new things and working with my team to turn ideas into real solutions.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="team-card glass reveal stagger-2 card-kevin">
+                    <span class="glass-shimmer"></span>
+                    <span class="glass-highlight-bar"></span>
+
+                    <div class="card-egg" aria-hidden="true">
+                        <div class="card-egg-a"></div>
+                        <div class="card-egg-b"></div>
+                    </div>
+
+                    <div class="card-content">
+                        <div class="card-photo">
+                            <div class="card-photo-ring"></div>
+                            <img src="images/Kevin.png" alt="Kevin Lo" loading="lazy">
+                        </div>
+                        <h3 class="card-name">Kevin Lo</h3>
+                        <p class="card-role">Team Captain · Co-Coder · Co-Builder · Lead Innovation</p>
+                        <p class="card-bio">
+                            My name is Kevin, and I am the captain of the TIS Phantom Shadow FLL team. I work as a co-coder and co-builder, helping to design, build, and program our robot. I enjoy leading my team, solving challenges together, and pushing our robot to perform at its best.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="team-card glass reveal stagger-3 card-liam">
+                    <span class="glass-shimmer"></span>
+                    <span class="glass-highlight-bar"></span>
+
+                    <div class="card-egg" aria-hidden="true">
+                        <div class="card-egg-a">
+                            <div class="card-egg-scroll">01010011 01011001 01010011 01001111 01010010 01101111 01100010 01101111 01110100 01101001 01100011 01110011 10101100 01101001 10110100 11010011 11101001 01010010 11000100 10111000 01101011 01010011 01011001 01010011 01011001 01010011 01001111 01010010 01101111 01100010 01101111 01110100 01101001 01100011 01110011 10101100 01101001 10110100 11010011 11101001 01010010 11000100 10111000 01101011 01010011 01011001 01010011 01011001 01010011 01001111 01010010 01101111 01100010 01101111 01110100 01101001 01100011 01110011 10101100 01101001 10110100 11010011 11101001 01010010 11000100 10111000 01101011 01010011 01011001 01010011 01011001 01010011 01001111 01010010 01101111 01100010 01101111 01110100 01101001 01100011 01110011 10101100 01101001 10110100 11010011 11101001 01010010 11000100 10111000 01101011 01010011 01011001 01010011 01011001 01010011 01001111 01010010 01101111 01100010 01101111 01110100 01101001 01100011 01110011 10101100 01101001 10110100 11010011 11101001 01010010 11000100 10111000 01101011 01010011 01011001 01010011 01011001 01010011 01001111 01010010 01101111 01100010 01101111 01110100 01101001 01100011 01110011 10101100 01101001 10110100 11010011 11101001 01010010 11000100 10111000 01101011 01010011 01011001</div>
+                        </div>
+                    </div>
+
+                    <div class="card-content">
+                        <div class="card-photo">
+                            <div class="card-photo-ring"></div>
+                            <img src="images/Liam.png" alt="Liam Watson" loading="lazy">
+                        </div>
+                        <h3 class="card-name">Liam Watson</h3>
+                        <p class="card-role">Co-Captain · Lead Coder · Co-Innovation · Co-Researcher</p>
+                        <p class="card-bio">
+                            My name is Liam, and I am the co-captain of the TIS Phantom Shadow FLL team. I work as a coder and co-innovation lead, helping to program our robot and develop creative solutions for our innovation project. I enjoy collaborating with my team and contributing ideas that help us succeed.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="team-card glass reveal stagger-1 card-kian">
+                    <span class="glass-shimmer"></span>
+                    <span class="glass-highlight-bar"></span>
+
+                    <div class="card-egg" aria-hidden="true">
+                        <div class="card-egg-a"></div>
+                        <div class="card-egg-b"></div>
+                    </div>
+
+                    <div class="card-content">
+                        <div class="card-photo">
+                            <div class="card-photo-ring"></div>
+                            <img src="images/Kian.png" alt="Kian" loading="lazy">
+                        </div>
+                        <h3 class="card-name">Kian Balhorn Robertson</h3>
+                        <p class="card-role">Co-Coder · Mission Strategist</p>
+                        <p class="card-bio">
+                            My name is Kian, and I am a co-coder and mission strategist for the TIS Phantom Shadow FLL team. I focus on programming the robot for consistent mission runs and optimizing our competition strategy. I love the challenge of making our robot perform autonomously.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="team-card glass reveal stagger-2 card-conner">
+                    <span class="glass-shimmer"></span>
+                    <span class="glass-highlight-bar"></span>
+
+                    <div class="card-egg" aria-hidden="true">
+                        <div class="card-egg-a"></div>
+                        <div class="card-egg-b"></div>
+                    </div>
+
+                    <div class="card-content">
+                        <div class="card-photo">
+                            <div class="card-photo-ring"></div>
+                            <img src="images/Conner.png" alt="Conner" loading="lazy">
+                        </div>
+                        <h3 class="card-name">Connor Martin</h3>
+                        <p class="card-role">Researcher · Co-Builder</p>
+                        <p class="card-bio">
+                            My name is Connor Martin, and I am a researcher and co-builder for the TIS Phantom Shadow FLL team. I dive deep into our innovation project research and assist with assembling our robot. I am passionate about learning new concepts and bringing our team's ideas to life.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="robot" class="robot-section">
+            <div class="section-header reveal">
+                <span class="section-label">Engineering</span>
+                <h2 class="section-title">Our Robot</h2>
+            </div>
+
+            <div class="robot-gallery">
+                <div class="robot-frame reveal-scale stagger-1">
+                    <div class="robot-frame-overlay"></div>
+                    <img id="robotMainImage" src="images/Botmobile.png" alt="Botmobile main view" loading="lazy">
+                </div>
+
+                <div class="robot-thumbs glass reveal stagger-2" id="robotThumbs">
+                    <span class="glass-shimmer"></span>
+                    <span class="glass-highlight-bar"></span>
+
+                    <button type="button" class="robot-thumb active" data-src="images/Botmobile.png" data-alt="Botmobile main view" data-caption="Botmobile main view">
+                        <img src="images/Botmobile.png" alt="Botmobile main view thumbnail" loading="lazy">
+                    </button>
+
+                    <button type="button" class="robot-thumb" data-src="images/1.png" data-alt="Botmobile view 1" data-caption="Botmobile view 1">
+                        <img src="images/1.png" alt="Botmobile view 1 thumbnail" loading="lazy">
+                    </button>
+
+                    <button type="button" class="robot-thumb" data-src="images/2.png" data-alt="Botmobile view 2" data-caption="Botmobile view 2">
+                        <img src="images/2.png" alt="Botmobile view 2 thumbnail" loading="lazy">
+                    </button>
+
+                    <button type="button" class="robot-thumb" data-src="images/3.png" data-alt="Botmobile view 3" data-caption="Botmobile view 3">
+                        <img src="images/3.png" alt="Botmobile view 3 thumbnail" loading="lazy">
+                    </button>
+
+                    <button type="button" class="robot-thumb" data-src="images/4.png" data-alt="Botmobile view 4" data-caption="Botmobile view 4">
+                        <img src="images/4.png" alt="Botmobile view 4 thumbnail" loading="lazy">
+                    </button>
+
+                    <button type="button" class="robot-thumb" data-src="images/5.png" data-alt="Botmobile view 5" data-caption="Botmobile view 5">
+                        <img src="images/5.png" alt="Botmobile view 5 thumbnail" loading="lazy">
+                    </button>
+
+                    <button type="button" class="robot-thumb" data-src="images/6.png" data-alt="Botmobile view 6" data-caption="Botmobile view 6">
+                        <img src="images/6.png" alt="Botmobile view 6 thumbnail" loading="lazy">
+                    </button>
+
+                    <button type="button" class="robot-thumb" data-src="images/7.png" data-alt="Botmobile view 7" data-caption="Botmobile view 7">
+                        <img src="images/7.png" alt="Botmobile view 7 thumbnail" loading="lazy">
+                    </button>
+                </div>
+
+                <p class="robot-caption reveal stagger-3" id="robotImageCaption">Botmobile main view</p>
+            </div>
+
+            <div class="robot-desc glass glass-accent reveal stagger-4">
+                <span class="glass-shimmer"></span>
+                <span class="glass-highlight-bar"></span>
+                <p>
+                    Our robot, <span class="robot-name">Botmobile</span>, is the result of countless hours of design, testing, and refinement. Built with precision engineering and innovative attachments, Botmobile can navigate complex courses and complete challenging missions with remarkable accuracy. Its modular design allows for quick changes between competition rounds, and the gallery above shows additional views of the bot.
+                </p>
+            </div>
+        </section>
+
+        <section id="achievements">
+            <div class="section-header reveal">
+                <span class="section-label">Milestones</span>
+                <h2 class="section-title">Our Achievements</h2>
+            </div>
+
+            <div class="achievement-grid">
+                <div class="achievement-card glass reveal stagger-1">
+                    <span class="glass-shimmer"></span>
+                    <span class="glass-highlight-bar"></span>
+                    <div class="achievement-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3>National Qualification</h3>
+                    <p>We reached the national stage and competed against top teams from across the country.</p>
+                </div>
+
+                <div class="achievement-card glass reveal stagger-2">
+                    <span class="glass-shimmer"></span>
+                    <span class="glass-highlight-bar"></span>
+                    <div class="achievement-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Innovation Excellence</h3>
+                    <p>Recognized for creative thinking, practical problem-solving, and strong project development.</p>
+                </div>
+
+                <div class="achievement-card glass reveal stagger-3">
+                    <span class="glass-shimmer"></span>
+                    <span class="glass-highlight-bar"></span>
+                    <div class="achievement-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Teamwork Excellence</h3>
+                    <p>Praised for collaboration, communication, resilience, and team spirit throughout the season.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="timeline">
+            <div class="section-header reveal">
+                <span class="section-label">Our Story</span>
+                <h2 class="section-title">The Journey</h2>
+            </div>
+
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot">
+                        <div class="timeline-dot-ring"></div>
+                    </div>
+                    <div class="timeline-card glass reveal-left">
+                        <span class="glass-shimmer"></span>
+                        <span class="glass-highlight-bar"></span>
+                        <div class="timeline-date">March 2025</div>
+                        <div class="timeline-title">Team Formation</div>
+                        <div class="timeline-desc">TIS Phantom Shadow came together with a shared passion for robotics, creativity, and competition.</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot">
+                        <div class="timeline-dot-ring"></div>
+                    </div>
+                    <div class="timeline-card glass reveal-right">
+                        <span class="glass-shimmer"></span>
+                        <span class="glass-highlight-bar"></span>
+                        <div class="timeline-date">September 2025</div>
+                        <div class="timeline-title">First Competition</div>
+                        <div class="timeline-desc">We entered our first regional tournament and gained valuable experience, feedback, and confidence.</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot">
+                        <div class="timeline-dot-ring"></div>
+                    </div>
+                    <div class="timeline-card glass reveal-left">
+                        <span class="glass-shimmer"></span>
+                        <span class="glass-highlight-bar"></span>
+                        <div class="timeline-date">November 2025</div>
+                        <div class="timeline-title">Regionals Success</div>
+                        <div class="timeline-desc">Our team placed in the top 27 at Regionals, qualified for the National Championship, and achieved a high score of 140 points.</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot">
+                        <div class="timeline-dot-ring"></div>
+                    </div>
+                    <div class="timeline-card glass reveal-right">
+                        <span class="glass-shimmer"></span>
+                        <span class="glass-highlight-bar"></span>
+                        <div class="timeline-date">December 2025</div>
+                        <div class="timeline-title">National Championship</div>
+                        <div class="timeline-desc">We competed at Nationals and raised our high score to 230 points, a 90-point improvement from Regionals.</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot">
+                        <div class="timeline-dot-ring"></div>
+                    </div>
+                    <div class="timeline-card glass reveal-left">
+                        <span class="glass-shimmer"></span>
+                        <span class="glass-highlight-bar"></span>
+                        <div class="timeline-date">January 2026</div>
+                        <div class="timeline-title">2026 Comeback</div>
+                        <div class="timeline-desc">We are preparing for the 2026 season with our new robot, Botmobile, and a stronger vision for what comes next.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer id="contact">
+        <div class="footer-glass glass reveal">
+            <span class="glass-shimmer"></span>
+            <span class="glass-highlight-bar"></span>
+            <div class="footer-logo">TIS PHANTOM SHADOW</div>
+            <p class="footer-tagline">FIRST LEGO League Team 2026</p>
+            <p class="footer-motto">2025 Tested Us · 2026 Defines Us</p>
+            <div class="footer-divider"></div>
+            <p class="copyright">&copy; 2026 TIS Phantom Shadow. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        (() => {
+            'use strict';
+
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const smoothBehavior = reduceMotion ? 'auto' : 'smooth';
+
+            window.addEventListener('load', () => {
+                const loadingScreen = document.getElementById('loading-screen');
+                if (!loadingScreen) return;
+
+                setTimeout(() => {
+                    loadingScreen.classList.add('hidden');
+                    setTimeout(() => loadingScreen.remove(), 700);
+                }, 400);
+            });
+
+            const heroTitle = document.getElementById('heroTitle');
+            let maxCharDelay = 0;
+
+            if (heroTitle) {
+                const text = heroTitle.textContent.trim();
+                const words = text.split(/\s+/);
+
+                heroTitle.textContent = '';
+                heroTitle.setAttribute('aria-label', text);
+                heroTitle.setAttribute('role', 'text');
+
+                let charIndex = 0;
+
+                words.forEach((word) => {
+                    const wordWrap = document.createElement('span');
+                    const lower = word.toLowerCase();
+
+                    wordWrap.className = 'word-wrap';
+                    if (lower === 'phantom') wordWrap.classList.add('word-phantom');
+                    if (lower === 'shadow') wordWrap.classList.add('word-shadow');
+
+                    [...word].forEach((char) => {
+                        const span = document.createElement('span');
+                        const delay = 0.6 + charIndex * 0.04;
+
+                        span.className = 'char';
+                        span.textContent = char;
+                        span.style.animationDelay = `${delay}s`;
+                        span.setAttribute('aria-hidden', 'true');
+
+                        maxCharDelay = Math.max(maxCharDelay, delay);
+                        wordWrap.appendChild(span);
+                        charIndex += 1;
+                    });
+
+                    heroTitle.appendChild(wordWrap);
+                });
+
+                setTimeout(() => {
+                    heroTitle.querySelectorAll('.word-phantom .char, .word-shadow .char').forEach((char) => {
+                        char.classList.add('anim-ready');
+                    });
+                }, maxCharDelay * 1000 + 900);
+            }
+
+            const heroBadge = document.getElementById('heroBadge');
+            if (heroBadge && !reduceMotion) {
+                setTimeout(() => heroBadge.classList.add('float-active'), 1400);
+            }
+
+            const glow = document.getElementById('cursorGlow');
+            const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
+
+            if (glow && !coarsePointer && !reduceMotion) {
+                let targetX = window.innerWidth / 2;
+                let targetY = window.innerHeight / 2;
+                let currentX = targetX;
+                let currentY = targetY;
+
+                document.addEventListener('mousemove', (event) => {
+                    targetX = event.clientX;
+                    targetY = event.clientY;
+                }, {
+                    passive: true
+                });
+
+                const animateGlow = () => {
+                    currentX += (targetX - currentX) * 0.15;
+                    currentY += (targetY - currentY) * 0.15;
+                    glow.style.transform = `translate3d(${currentX - 175}px, ${currentY - 175}px, 0)`;
+                    requestAnimationFrame(animateGlow);
+                };
+
+                requestAnimationFrame(animateGlow);
+            } else if (glow) {
+                glow.remove();
+            }
+
+            const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+
+            if (reduceMotion) {
+                revealElements.forEach((element) => element.classList.add('revealed'));
+            } else if (revealElements.length) {
+                const revealObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach((entry) => {
+                        if (!entry.isIntersecting) return;
+                        entry.target.classList.add('revealed');
+                        observer.unobserve(entry.target);
+                    });
+                }, {
+                    threshold: 0.12,
+                    rootMargin: '0px 0px -40px 0px'
+                });
+
+                revealElements.forEach((element) => revealObserver.observe(element));
+            }
+
+            const sections = [...document.querySelectorAll('section[id]')];
+            const navLinks = [...document.querySelectorAll('.nav-links a')];
+
+            const updateNav = () => {
+                const marker = window.scrollY + 140;
+                let current = sections[0]?.id || '';
+
+                sections.forEach((section) => {
+                    if (marker >= section.offsetTop) current = section.id;
+                });
+
+                navLinks.forEach((link) => {
+                    link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
+                });
+            };
+
+            let navFrame = 0;
+            const requestNavUpdate = () => {
+                if (navFrame) return;
+                navFrame = requestAnimationFrame(() => {
+                    updateNav();
+                    navFrame = 0;
+                });
+            };
+
+            window.addEventListener('scroll', requestNavUpdate, {
+                passive: true
+            });
+            window.addEventListener('resize', requestNavUpdate, {
+                passive: true
+            });
+            updateNav();
+
+            const backToTop = document.getElementById('backToTop');
+            if (backToTop) {
+                const updateBackToTop = () => {
+                    backToTop.classList.toggle('visible', window.scrollY > 500);
+                };
+
+                window.addEventListener('scroll', updateBackToTop, {
+                    passive: true
+                });
+                updateBackToTop();
+
+                backToTop.addEventListener('click', () => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: smoothBehavior
+                    });
+                });
+            }
+
+            const mobileToggle = document.getElementById('mobileToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            const setMenuState = (open) => {
+                if (!mobileToggle || !mobileMenu) return;
+
+                mobileMenu.classList.toggle('open', open);
+                mobileToggle.setAttribute('aria-expanded', String(open));
+                document.body.classList.toggle('menu-open', open);
+
+                const icon = mobileToggle.querySelector('i');
+                if (icon) {
+                    icon.className = open ? 'fas fa-times' : 'fas fa-bars';
+                }
+            };
+
+            if (mobileToggle && mobileMenu) {
+                mobileToggle.addEventListener('click', () => {
+                    setMenuState(!mobileMenu.classList.contains('open'));
+                });
+
+                document.addEventListener('keydown', (event) => {
+                    if (event.key === 'Escape') setMenuState(false);
+                });
+
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth > 768) setMenuState(false);
+                }, {
+                    passive: true
+                });
+            }
+
+            let autoDirection = 1;
+            let autoSpeed = 1.25;
+            let autoRunning = !reduceMotion;
+            let pauseUntil = 0;
+
+            const indicator = document.getElementById('scrollIndicator');
+
+            const updateIndicator = () => {
+                if (!indicator) return;
+                indicator.classList.toggle('active', autoRunning);
+                indicator.textContent = autoRunning ? '● Auto-scroll | Press E to toggle' : '○ Paused | Press E to toggle';
+            };
+
+            const pauseAutoScroll = (duration = 2200) => {
+                pauseUntil = performance.now() + duration;
+            };
+
+            const autoScrollLoop = (now) => {
+                const menuOpen = document.body.classList.contains('menu-open');
+
+                if (autoRunning && now > pauseUntil && !menuOpen) {
+                    window.scrollBy(0, autoSpeed * autoDirection);
+
+                    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                    if (window.scrollY >= maxScroll - 2) autoDirection = -1;
+                    if (window.scrollY <= 1) autoDirection = 1;
+                }
+
+                requestAnimationFrame(autoScrollLoop);
+            };
+
+            updateIndicator();
+            requestAnimationFrame(autoScrollLoop);
+
+            const manualPause = () => pauseAutoScroll();
+
+            window.addEventListener('wheel', manualPause, {
+                passive: true
+            });
+            window.addEventListener('touchstart', manualPause, {
+                passive: true
+            });
+            window.addEventListener('touchmove', manualPause, {
+                passive: true
+            });
+            document.addEventListener('pointerdown', manualPause, {
+                passive: true
+            });
+
+            document.addEventListener('keydown', (event) => {
+                const key = event.key.toLowerCase();
+
+                if (key === 'e') {
+                    autoRunning = !autoRunning;
+                    if (autoRunning) pauseUntil = 0;
+                    updateIndicator();
+                    return;
+                }
+
+                if (event.key === 'ArrowUp') {
+                    autoDirection = -1;
+                    manualPause();
+                }
+
+                if (event.key === 'ArrowDown') {
+                    autoDirection = 1;
+                    manualPause();
+                }
+
+                if (key === '+' || key === '=') {
+                    autoSpeed = Math.min(7, autoSpeed + 0.35);
+                    manualPause();
+                }
+
+                if (key === '-') {
+                    autoSpeed = Math.max(0.3, autoSpeed - 0.35);
+                    manualPause();
+                }
+            });
+
+            document.querySelectorAll('a[href^="#"]').forEach((link) => {
+                link.addEventListener('click', (event) => {
+                    const href = link.getAttribute('href');
+                    if (!href || href === '#') return;
+
+                    const target = document.querySelector(href);
+                    if (!target) return;
+
+                    event.preventDefault();
+                    pauseAutoScroll(3000);
+
+                    const top = target.getBoundingClientRect().top + window.scrollY - 80;
+                    window.scrollTo({
+                        top,
+                        behavior: smoothBehavior
+                    });
+
+                    setMenuState(false);
+                });
+            });
+
+            const robotMainImage = document.getElementById('robotMainImage');
+            const robotImageCaption = document.getElementById('robotImageCaption');
+            const robotThumbs = document.querySelectorAll('.robot-thumb');
+
+            if (robotMainImage && robotThumbs.length) {
+                robotThumbs.forEach((thumb) => {
+                    thumb.addEventListener('click', () => {
+                        const src = thumb.dataset.src;
+                        const alt = thumb.dataset.alt || 'Botmobile image';
+                        const caption = thumb.dataset.caption || '';
+
+                        if (!src) return;
+
+                        robotMainImage.src = src;
+                        robotMainImage.alt = alt;
+                        if (robotImageCaption) robotImageCaption.textContent = caption;
+
+                        robotThumbs.forEach((item) => item.classList.remove('active'));
+                        thumb.classList.add('active');
+
+                        pauseAutoScroll(2500);
+                    });
+                });
+            }
+
+            const sparkLayer = document.getElementById('sparkLayer');
+
+            if (sparkLayer && !reduceMotion) {
+                const canvas = document.createElement('canvas');
+                canvas.style.cssText = 'width:100%;height:100%;display:block;pointer-events:none';
+                sparkLayer.appendChild(canvas);
+
+                const ctx = canvas.getContext('2d');
+                let sparks = [];
+
+                const resizeCanvas = () => {
+                    const dpr = window.devicePixelRatio || 1;
+                    canvas.width = Math.floor(window.innerWidth * dpr);
+                    canvas.height = Math.floor(window.innerHeight * dpr);
+                    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                };
+
+                resizeCanvas();
+                window.addEventListener('resize', resizeCanvas, {
+                    passive: true
+                });
+
+                const drawSparks = (timestamp) => {
+                    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+                    sparks = sparks.filter((spark) => {
+                        const progress = (timestamp - spark.start) / 420;
+                        if (progress > 1) return false;
+
+                        const eased = progress * (2 - progress);
+                        const distance = eased * 42 * spark.scale;
+                        const length = 14 * (1 - eased) * spark.scale;
+
+                        const x1 = spark.x + distance * Math.cos(spark.angle);
+                        const y1 = spark.y + distance * Math.sin(spark.angle);
+                        const x2 = spark.x + (distance + length) * Math.cos(spark.angle);
+                        const y2 = spark.y + (distance + length) * Math.sin(spark.angle);
+
+                        ctx.strokeStyle = `rgba(255,210,170,${0.85 * (1 - eased)})`;
+                        ctx.lineWidth = 1.8;
+                        ctx.lineCap = 'round';
+                        ctx.beginPath();
+                        ctx.moveTo(x1, y1);
+                        ctx.lineTo(x2, y2);
+                        ctx.stroke();
+
+                        return true;
+                    });
+
+                    requestAnimationFrame(drawSparks);
+                };
+
+                requestAnimationFrame(drawSparks);
+
+                document.addEventListener('pointerdown', (event) => {
+                    if (event.pointerType === 'mouse' && event.button !== 0) return;
+
+                    const now = performance.now();
+                    const count = 10;
+
+                    for (let i = 0; i < count; i += 1) {
+                        sparks.push({
+                            x: event.clientX,
+                            y: event.clientY,
+                            angle: (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.4,
+                            start: now,
+                            scale: 0.6 + Math.random() * 0.6
+                        });
+                    }
+                }, {
+                    passive: true
+                });
+            }
+
+            const blobs = document.querySelectorAll('.blob');
+
+            if (blobs.length && !reduceMotion) {
+                let blobFrame = 0;
+
+                const updateBlobs = () => {
+                    const scrollY = window.scrollY;
+                    blobs.forEach((blob, index) => {
+                        const offset = scrollY * (0.015 + index * 0.012);
+                        blob.style.setProperty('--py', `${offset}px`);
+                    });
+                    blobFrame = 0;
+                };
+
+                window.addEventListener('scroll', () => {
+                    if (blobFrame) return;
+                    blobFrame = requestAnimationFrame(updateBlobs);
+                }, {
+                    passive: true
+                });
+
+                updateBlobs();
+            }
+        })();
+    </script>
+</body>
+
+</html>
