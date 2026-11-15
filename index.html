@@ -1637,6 +1637,417 @@
             color: var(--text-secondary);
         }
 
+        /* Lucky Leaves Mission Code Breakdown */
+        .robot-code {
+            max-width: 960px;
+            margin: 56px auto 0;
+        }
+
+        .robot-code-header {
+            margin-bottom: 24px;
+        }
+
+        .robot-code-subtitle {
+            color: var(--text-secondary);
+            font-size: .96rem;
+            max-width: 600px;
+            margin: 10px auto 0;
+            line-height: 1.65;
+        }
+
+        .code-showcase {
+            padding: 36px 34px;
+            border-radius: var(--radius-lg);
+            text-align: left;
+            position: relative;
+        }
+
+        .code-showcase:hover {
+            transform: none;
+        }
+
+        .code-showcase-bar {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 190, 130, .09);
+        }
+
+        .code-showcase-heading {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .code-showcase-heading h4 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--gold), var(--amber) 55%, var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .code-showcase-pill {
+            font-size: .72rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--amber);
+            background: rgba(240, 160, 48, .08);
+            border: 1px solid rgba(240, 160, 48, .22);
+            padding: 4px 12px;
+            border-radius: 50px;
+        }
+
+        .code-showcase-hint {
+            font-size: .78rem;
+            color: var(--text-dim);
+            letter-spacing: .4px;
+        }
+
+        .code-diagram {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: auto minmax(260px, 1fr);
+            gap: clamp(44px, 6vw, 96px);
+            align-items: start;
+        }
+
+        .code-arrows {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 3;
+            overflow: visible;
+        }
+
+        .code-arrow-path {
+            fill: none;
+            stroke: url(#codeArrowGrad);
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            opacity: .84;
+            filter: drop-shadow(0 0 6px rgba(240, 160, 48, .28));
+            transition: opacity .25s ease, stroke-width .25s ease, filter .25s ease;
+        }
+
+        .code-arrow-dot {
+            fill: var(--gold);
+            opacity: .9;
+            transition: opacity .25s ease, r .25s ease;
+        }
+
+        .code-diagram.has-active .code-arrow-path {
+            opacity: .22;
+        }
+
+        .code-diagram.has-active .code-arrow-dot {
+            opacity: .25;
+        }
+
+        .code-arrow-path.is-active {
+            opacity: 1 !important;
+            stroke-width: 3.3;
+            filter: drop-shadow(0 0 12px rgba(255, 214, 153, .55));
+        }
+
+        .code-arrow-dot.is-active {
+            opacity: 1 !important;
+        }
+
+        .code-stack {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 18px 22px 22px;
+            border-radius: var(--radius-md);
+            background:
+                radial-gradient(circle at 38% 32%, rgba(240, 160, 48, .08), transparent 62%),
+                rgba(10, 5, 4, .62);
+            border: 1px solid rgba(255, 190, 130, .09);
+            box-shadow: inset 0 1px 0 rgba(255, 235, 210, .04);
+        }
+
+        .sb-block {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5.5px 11px 5.5px 9px;
+            border-radius: 6px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 1.2;
+            color: #fff;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, .25);
+            border: 1px solid rgba(0, 0, 0, .26);
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, .24),
+                0 3px 10px rgba(0, 0, 0, .28);
+            margin-bottom: -1px;
+            width: fit-content;
+            white-space: nowrap;
+            cursor: default;
+            transition: opacity .25s ease, filter .25s ease, transform .28s var(--ease-out-expo), box-shadow .28s ease;
+        }
+
+        .sb-block::after {
+            content: '';
+            position: absolute;
+            left: 14px;
+            bottom: -5px;
+            width: 22px;
+            height: 5px;
+            background: inherit;
+            border: 1px solid rgba(0, 0, 0, .26);
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+            pointer-events: none;
+        }
+
+        .sb-hat {
+            background: linear-gradient(180deg, #f2be00, #dda300);
+            border-color: #b58300;
+            border-top-left-radius: 14px;
+            padding: 7px 14px 6px 10px;
+            margin-top: 10px;
+        }
+
+        .sb-hat::before {
+            content: '';
+            position: absolute;
+            left: -1px;
+            top: -10px;
+            width: 86px;
+            height: 11px;
+            background: #f2be00;
+            border: 1px solid #b58300;
+            border-bottom: none;
+            border-radius: 44px 44px 0 0 / 13px 13px 0 0;
+            pointer-events: none;
+        }
+
+        .sb-myblock {
+            background: linear-gradient(180deg, #ff6680, #ee4b68);
+            border-color: #c8334e;
+        }
+
+        .sb-motor {
+            background: linear-gradient(180deg, #1b93f7, #0e7be0);
+            border-color: #095fb4;
+        }
+
+        .sb-control {
+            background: linear-gradient(180deg, #ffae19, #ea9405);
+            border-color: #bf7400;
+        }
+
+        .sb-move {
+            background: linear-gradient(180deg, #ff4d9a, #e23280);
+            border-color: #b72064;
+        }
+
+        .sb-icon {
+            width: 19px;
+            height: 19px;
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sb-play {
+            width: 15px;
+            height: 15px;
+            margin-right: 4px;
+            flex-shrink: 0;
+        }
+
+        .sb-oval {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 24px;
+            height: 20px;
+            padding: 0 7px;
+            border-radius: 999px;
+            background: #fff;
+            color: #463c35;
+            font-size: 11.5px;
+            font-weight: 700;
+            text-shadow: none;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, .14);
+        }
+
+        .sb-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            height: 20px;
+            padding: 0 7px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, .18);
+            border: 1px solid rgba(255, 255, 255, .24);
+            font-size: 11.5px;
+            font-weight: 600;
+        }
+
+        .sb-pill-rect {
+            border-radius: 5px;
+            background: rgba(255, 255, 255, .14);
+        }
+
+        .sb-caret {
+            width: 7px;
+            height: 5px;
+            opacity: .9;
+            flex-shrink: 0;
+        }
+
+        .sb-step-badge {
+            display: none;
+            margin-left: 6px;
+            padding: 1px 6px;
+            border-radius: 50px;
+            background: rgba(10, 5, 4, .75);
+            border: 1px solid rgba(255, 214, 153, .5);
+            color: var(--gold);
+            font-family: 'Sora', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .5px;
+        }
+
+        .code-diagram.has-active .sb-block {
+            opacity: .42;
+            filter: saturate(.75);
+        }
+
+        .sb-block.is-active {
+            opacity: 1 !important;
+            filter: saturate(1.12) brightness(1.06) !important;
+            transform: translateX(4px);
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, .35),
+                0 0 0 2px rgba(255, 214, 153, .75),
+                0 6px 20px rgba(240, 160, 48, .35);
+            z-index: 30 !important;
+        }
+
+        .code-notes {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            padding-top: 52px;
+        }
+
+        .code-note {
+            position: relative;
+            padding: 18px 20px;
+            border-radius: var(--radius-md);
+            background: rgba(24, 14, 10, .68);
+            border: 1px solid rgba(255, 190, 130, .12);
+            cursor: pointer;
+            transition:
+                transform .3s var(--ease-out-expo),
+                border-color .28s ease,
+                background .28s ease,
+                box-shadow .28s ease,
+                opacity .25s ease;
+        }
+
+        .code-note:hover,
+        .code-note:focus-visible,
+        .code-note.is-active {
+            outline: none;
+            transform: translateY(-2px);
+            background: rgba(34, 20, 14, .82);
+            border-color: rgba(240, 160, 48, .42);
+            box-shadow:
+                0 10px 28px rgba(0, 0, 0, .35),
+                0 0 24px rgba(240, 160, 48, .14);
+        }
+
+        .code-diagram.has-active .code-note:not(.is-active) {
+            opacity: .56;
+        }
+
+        .code-note-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Sora', sans-serif;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 6px;
+        }
+
+        .code-note p {
+            font-size: .92rem;
+            line-height: 1.55;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        @media (max-width: 820px) {
+            .code-showcase {
+                padding: 24px 16px;
+            }
+
+            .code-diagram {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .code-arrows {
+                display: none;
+            }
+
+            .code-stack {
+                margin: 0 auto;
+                max-width: 100%;
+                overflow-x: auto;
+                padding: 16px 14px 18px;
+            }
+
+            .sb-block {
+                font-size: 11px;
+                padding: 5px 9px 5px 8px;
+                gap: 5px;
+            }
+
+            .sb-step-badge {
+                display: inline-flex;
+            }
+
+            .code-notes {
+                padding-top: 0;
+                gap: 14px;
+            }
+        }
+
         /* Innovation — WaiCheck */
         .innovation-top {
             display: grid;
@@ -2679,6 +3090,250 @@
                     </div>
                 </article>
             </div>
+
+            <div class="robot-code reveal">
+                <div class="robot-code-header">
+                    <span class="section-label">Mission Code</span>
+                    <h3 class="robot-videos-title">Lucky Leaves</h3>
+                    <p class="robot-code-subtitle">
+                        How Phantom Bot runs the Lucky Leaves mission using custom Gyro My Blocks and precision arm control. Hover or tap any note to highlight its code blocks.
+                    </p>
+                </div>
+
+                <div class="code-showcase glass glass-accent">
+                    <span class="glass-shimmer"></span>
+                    <span class="glass-highlight-bar"></span>
+
+                    <div class="code-showcase-bar">
+                        <div class="code-showcase-heading">
+                            <h4>Lucky Leaves</h4>
+                            <span class="code-showcase-pill">SPIKE Prime · Gyro Program</span>
+                        </div>
+                        <span class="code-showcase-hint">Hover or tap a step to inspect</span>
+                    </div>
+
+                    <div class="code-diagram" id="luckyLeavesDiagram">
+                        <svg class="code-arrows" id="codeArrowsSvg" aria-hidden="true">
+                            <defs>
+                                <linearGradient id="codeArrowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#ffd699" />
+                                    <stop offset="55%" stop-color="#f0a030" />
+                                    <stop offset="100%" stop-color="#e25535" />
+                                </linearGradient>
+                                <marker id="codeArrowHead" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+                                    <path d="M 1 1.5 L 10.5 6 L 1 10.5 L 3.4 6 Z" fill="#ffd699" />
+                                </marker>
+                            </defs>
+                            <circle class="code-arrow-dot" id="codeDot1" cx="470" cy="110" r="3.5" data-step="1" />
+                            <path class="code-arrow-path" id="codeArrow1" d="M 470 110 C 430 14, 300 14, 250 72" marker-end="url(#codeArrowHead)" data-step="1" />
+                            <circle class="code-arrow-dot" id="codeDot2" cx="470" cy="215" r="3.5" data-step="2" />
+                            <path class="code-arrow-path" id="codeArrow2" d="M 470 215 C 400 225, 360 155, 315 130" marker-end="url(#codeArrowHead)" data-step="2" />
+                            <circle class="code-arrow-dot" id="codeDot3" cx="470" cy="335" r="3.5" data-step="3" />
+                            <path class="code-arrow-path" id="codeArrow3" d="M 470 335 C 380 340, 260 270, 175 268" marker-end="url(#codeArrowHead)" data-step="3" />
+                            <circle class="code-arrow-dot" id="codeDot4" cx="470" cy="455" r="3.5" data-step="4" />
+                            <path class="code-arrow-path" id="codeArrow4" d="M 470 455 C 415 470, 390 440, 355 438" marker-end="url(#codeArrowHead)" data-step="4" />
+                        </svg>
+
+                        <div class="code-stack" role="img" aria-label="Lucky Leaves SPIKE Prime program blocks">
+                            <div class="sb-block sb-hat" style="z-index: 20;">
+                                <svg class="sb-play" viewBox="0 0 16 16" aria-hidden="true"><polygon points="3,2 14,8 3,14" fill="#fff"/></svg>
+                                <span>when program starts</span>
+                            </div>
+
+                            <div class="sb-block sb-myblock" style="z-index: 19;">
+                                <span>start</span>
+                            </div>
+
+                            <div class="sb-block sb-motor" id="codeTarget1" data-step="1" style="z-index: 18;">
+                                <svg class="sb-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="9.5" fill="#fff"/>
+                                    <circle cx="12" cy="12" r="2.2" fill="#0e7be0"/>
+                                    <circle cx="12" cy="6.8" r="1.7" fill="#0e7be0"/>
+                                    <circle cx="12" cy="17.2" r="1.7" fill="#0e7be0"/>
+                                    <circle cx="6.8" cy="12" r="1.7" fill="#0e7be0"/>
+                                    <circle cx="17.2" cy="12" r="1.7" fill="#0e7be0"/>
+                                </svg>
+                                <span class="sb-pill">E <svg class="sb-caret" viewBox="0 0 8 5"><path d="M0 0h8L4 5z" fill="#fff"/></svg></span>
+                                <span>run</span>
+                                <span class="sb-pill sb-pill-rect">
+                                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                                        <path d="M4.5 5H10a3.5 3.5 0 1 1 0 7H7" stroke="#fff" stroke-width="1.9" stroke-linecap="round"/>
+                                        <path d="M6.2 2.7L3.4 5l2.8 2.3" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <svg class="sb-caret" viewBox="0 0 8 5"><path d="M0 0h8L4 5z" fill="#fff"/></svg>
+                                </span>
+                                <span>for</span>
+                                <span class="sb-oval">90</span>
+                                <span class="sb-pill sb-pill-rect">degrees <svg class="sb-caret" viewBox="0 0 8 5"><path d="M0 0h8L4 5z" fill="#fff"/></svg></span>
+                                <span class="sb-step-badge">01</span>
+                            </div>
+
+                            <div class="sb-block sb-myblock" id="codeTarget2" data-step="2" style="z-index: 17;">
+                                <span>Gyro straight</span>
+                                <span class="sb-oval">0.75</span>
+                                <span>Rotation</span>
+                                <span class="sb-oval">100</span>
+                                <span>Speed</span>
+                                <span class="sb-step-badge">02</span>
+                            </div>
+
+                            <div class="sb-block sb-myblock" data-step="3" style="z-index: 16;">
+                                <span>Gyro</span>
+                                <span class="sb-oval">19</span>
+                                <span>turn</span>
+                            </div>
+
+                            <div class="sb-block sb-control" style="z-index: 15;">
+                                <span>wait</span>
+                                <span class="sb-oval">0.1</span>
+                                <span>seconds</span>
+                            </div>
+
+                            <div class="sb-block sb-myblock" data-step="2" style="z-index: 14;">
+                                <span>Gyro straight</span>
+                                <span class="sb-oval">0.567</span>
+                                <span>Rotation</span>
+                                <span class="sb-oval">100</span>
+                                <span>Speed</span>
+                            </div>
+
+                            <div class="sb-block sb-myblock" id="codeTarget3" data-step="3" style="z-index: 13;">
+                                <span>Gyro</span>
+                                <span class="sb-oval">-57</span>
+                                <span>turn</span>
+                                <span class="sb-step-badge">03</span>
+                            </div>
+
+                            <div class="sb-block sb-control" style="z-index: 12;">
+                                <span>wait</span>
+                                <span class="sb-oval">0.1</span>
+                                <span>seconds</span>
+                            </div>
+
+                            <div class="sb-block sb-myblock" data-step="2" style="z-index: 11;">
+                                <span>Gyro straight</span>
+                                <span class="sb-oval">0.7</span>
+                                <span>Rotation</span>
+                                <span class="sb-oval">56</span>
+                                <span>Speed</span>
+                            </div>
+
+                            <div class="sb-block sb-motor" data-step="4" style="z-index: 10;">
+                                <svg class="sb-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="9.5" fill="#fff"/>
+                                    <circle cx="12" cy="12" r="2.2" fill="#0e7be0"/>
+                                    <circle cx="12" cy="6.8" r="1.7" fill="#0e7be0"/>
+                                    <circle cx="12" cy="17.2" r="1.7" fill="#0e7be0"/>
+                                    <circle cx="6.8" cy="12" r="1.7" fill="#0e7be0"/>
+                                    <circle cx="17.2" cy="12" r="1.7" fill="#0e7be0"/>
+                                </svg>
+                                <span class="sb-pill">E <svg class="sb-caret" viewBox="0 0 8 5"><path d="M0 0h8L4 5z" fill="#fff"/></svg></span>
+                                <span>run</span>
+                                <span class="sb-pill sb-pill-rect">
+                                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                                        <path d="M4.5 5H10a3.5 3.5 0 1 1 0 7H7" stroke="#fff" stroke-width="1.9" stroke-linecap="round"/>
+                                        <path d="M6.2 2.7L3.4 5l2.8 2.3" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <svg class="sb-caret" viewBox="0 0 8 5"><path d="M0 0h8L4 5z" fill="#fff"/></svg>
+                                </span>
+                                <span>for</span>
+                                <span class="sb-oval">90</span>
+                                <span class="sb-pill sb-pill-rect">degrees <svg class="sb-caret" viewBox="0 0 8 5"><path d="M0 0h8L4 5z" fill="#fff"/></svg></span>
+                            </div>
+
+                            <div class="sb-block sb-move" data-step="4" style="z-index: 9;">
+                                <svg class="sb-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <circle cx="9.5" cy="9.5" r="7" fill="#fff"/>
+                                    <circle cx="14.5" cy="14.5" r="7" fill="#fff" stroke="#e23280" stroke-width="1.3"/>
+                                    <circle cx="14.5" cy="14.5" r="1.7" fill="#e23280"/>
+                                    <circle cx="14.5" cy="10.4" r="1.3" fill="#e23280"/>
+                                    <circle cx="14.5" cy="18.6" r="1.3" fill="#e23280"/>
+                                    <circle cx="10.4" cy="14.5" r="1.3" fill="#e23280"/>
+                                    <circle cx="18.6" cy="14.5" r="1.3" fill="#e23280"/>
+                                </svg>
+                                <span>move</span>
+                                <span class="sb-pill sb-pill-rect">
+                                    <svg width="11" height="13" viewBox="0 0 12 14" fill="none" aria-hidden="true">
+                                        <path d="M6 2v9.5M2.5 8.5L6 12l3.5-3.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <svg class="sb-caret" viewBox="0 0 8 5"><path d="M0 0h8L4 5z" fill="#fff"/></svg>
+                                </span>
+                                <span>for</span>
+                                <span class="sb-oval">20</span>
+                                <span class="sb-pill sb-pill-rect">cm <svg class="sb-caret" viewBox="0 0 8 5"><path d="M0 0h8L4 5z" fill="#fff"/></svg></span>
+                            </div>
+
+                            <div class="sb-block sb-motor" id="codeTarget4" data-step="4" style="z-index: 8;">
+                                <svg class="sb-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="9.5" fill="#fff"/>
+                                    <circle cx="12" cy="12" r="2.2" fill="#0e7be0"/>
+                                    <circle cx="12" cy="6.8" r="1.7" fill="#0e7be0"/>
+                                    <circle cx="12" cy="17.2" r="1.7" fill="#0e7be0"/>
+                                    <circle cx="6.8" cy="12" r="1.7" fill="#0e7be0"/>
+                                    <circle cx="17.2" cy="12" r="1.7" fill="#0e7be0"/>
+                                </svg>
+                                <span class="sb-pill">A <svg class="sb-caret" viewBox="0 0 8 5"><path d="M0 0h8L4 5z" fill="#fff"/></svg></span>
+                                <span>run</span>
+                                <span class="sb-pill sb-pill-rect">
+                                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                                        <path d="M4.5 5H10a3.5 3.5 0 1 1 0 7H7" stroke="#fff" stroke-width="1.9" stroke-linecap="round"/>
+                                        <path d="M6.2 2.7L3.4 5l2.8 2.3" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <svg class="sb-caret" viewBox="0 0 8 5"><path d="M0 0h8L4 5z" fill="#fff"/></svg>
+                                </span>
+                                <span>for</span>
+                                <span class="sb-oval">0.5</span>
+                                <span class="sb-pill sb-pill-rect">seconds <svg class="sb-caret" viewBox="0 0 8 5"><path d="M0 0h8L4 5z" fill="#fff"/></svg></span>
+                                <span class="sb-step-badge">04</span>
+                            </div>
+
+                            <div class="sb-block sb-move" data-step="4" style="z-index: 7;">
+                                <svg class="sb-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                    <circle cx="9.5" cy="9.5" r="7" fill="#fff"/>
+                                    <circle cx="14.5" cy="14.5" r="7" fill="#fff" stroke="#e23280" stroke-width="1.3"/>
+                                    <circle cx="14.5" cy="14.5" r="1.7" fill="#e23280"/>
+                                    <circle cx="14.5" cy="10.4" r="1.3" fill="#e23280"/>
+                                    <circle cx="14.5" cy="18.6" r="1.3" fill="#e23280"/>
+                                    <circle cx="10.4" cy="14.5" r="1.3" fill="#e23280"/>
+                                    <circle cx="18.6" cy="14.5" r="1.3" fill="#e23280"/>
+                                </svg>
+                                <span>move</span>
+                                <span class="sb-pill sb-pill-rect">
+                                    <svg width="11" height="13" viewBox="0 0 12 14" fill="none" aria-hidden="true">
+                                        <path d="M6 12V2.5M2.5 5.5L6 2l3.5 3.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <svg class="sb-caret" viewBox="0 0 8 5"><path d="M0 0h8L4 5z" fill="#fff"/></svg>
+                                </span>
+                                <span>for</span>
+                                <span class="sb-oval">10</span>
+                                <span class="sb-pill sb-pill-rect">cm <svg class="sb-caret" viewBox="0 0 8 5"><path d="M0 0h8L4 5z" fill="#fff"/></svg></span>
+                            </div>
+                        </div>
+
+                        <div class="code-notes">
+                            <div class="code-note" id="codeNote1" data-step="1" tabindex="0">
+                                <span class="code-note-tag">01 · Pre-Lift Arm</span>
+                                <p>This code is to lift the arm up early so we won't have to later.</p>
+                            </div>
+
+                            <div class="code-note" id="codeNote2" data-step="2" tabindex="0">
+                                <span class="code-note-tag">02 · Gyro Precision</span>
+                                <p>Instead of using normal move blocks, we used Gyro — which is better.</p>
+                            </div>
+
+                            <div class="code-note" id="codeNote3" data-step="3" tabindex="0">
+                                <span class="code-note-tag">03 · Turn Direction</span>
+                                <p>We use negative values to make it turn left and positive for right.</p>
+                            </div>
+
+                            <div class="code-note" id="codeNote4" data-step="4" tabindex="0">
+                                <span class="code-note-tag">04 · Grab &amp; Return</span>
+                                <p>The rest of the code is to grab the leaves and then return to home.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section id="innovation">
@@ -3488,6 +4143,141 @@
                         }
                     });
                 });
+            }
+
+            /* Lucky Leaves Code Diagram — responsive curved SVG arrows & interactive step highlight */
+            const luckyDiagram = document.getElementById('luckyLeavesDiagram');
+            const codeArrowsSvg = document.getElementById('codeArrowsSvg');
+
+            if (luckyDiagram && codeArrowsSvg) {
+                const codeBlocks = [...luckyDiagram.querySelectorAll('.sb-block[data-step]')];
+                const codeNotes = [...luckyDiagram.querySelectorAll('.code-note[data-step]')];
+                const codeArrowEls = [...luckyDiagram.querySelectorAll('.code-arrow-path[data-step], .code-arrow-dot[data-step]')];
+
+                let lockedStep = null;
+
+                const setActiveStep = (step) => {
+                    luckyDiagram.classList.toggle('has-active', Boolean(step));
+                    codeBlocks.forEach((el) => el.classList.toggle('is-active', el.dataset.step === step));
+                    codeNotes.forEach((el) => el.classList.toggle('is-active', el.dataset.step === step));
+                    codeArrowEls.forEach((el) => el.classList.toggle('is-active', el.dataset.step === step));
+                };
+
+                const bindInteractive = (el) => {
+                    const step = el.dataset.step;
+                    el.addEventListener('mouseenter', () => {
+                        if (!lockedStep) setActiveStep(step);
+                    });
+                    el.addEventListener('mouseleave', () => {
+                        if (!lockedStep) setActiveStep(null);
+                    });
+                    el.addEventListener('focus', () => {
+                        if (!lockedStep) setActiveStep(step);
+                    });
+                    el.addEventListener('blur', () => {
+                        if (!lockedStep) setActiveStep(null);
+                    });
+                    el.addEventListener('click', (event) => {
+                        event.stopPropagation();
+                        lockedStep = lockedStep === step ? null : step;
+                        setActiveStep(lockedStep);
+                    });
+                };
+
+                codeNotes.forEach(bindInteractive);
+                codeBlocks.forEach(bindInteractive);
+
+                document.addEventListener('click', (event) => {
+                    if (lockedStep && !luckyDiagram.contains(event.target)) {
+                        lockedStep = null;
+                        setActiveStep(null);
+                    }
+                });
+
+                const layoutArrows = () => {
+                    const box = luckyDiagram.getBoundingClientRect();
+                    if (box.width < 10 || box.height < 10 || window.innerWidth <= 820) return;
+
+                    codeArrowsSvg.setAttribute('viewBox', `0 0 ${box.width.toFixed(1)} ${box.height.toFixed(1)}`);
+
+                    const rel = (id) => {
+                        const node = document.getElementById(id);
+                        if (!node) return null;
+                        const r = node.getBoundingClientRect();
+                        return {
+                            left: r.left - box.left,
+                            right: r.right - box.left,
+                            top: r.top - box.top,
+                            bottom: r.bottom - box.top,
+                            width: r.width,
+                            height: r.height
+                        };
+                    };
+
+                    const setArrow = (idx, sx, sy, cx1, cy1, cx2, cy2, tx, ty) => {
+                        const dot = document.getElementById(`codeDot${idx}`);
+                        const path = document.getElementById(`codeArrow${idx}`);
+                        if (dot) {
+                            dot.setAttribute('cx', sx.toFixed(1));
+                            dot.setAttribute('cy', sy.toFixed(1));
+                        }
+                        if (path) {
+                            path.setAttribute(
+                                'd',
+                                `M ${sx.toFixed(1)} ${sy.toFixed(1)} C ${cx1.toFixed(1)} ${cy1.toFixed(1)}, ${cx2.toFixed(1)} ${cy2.toFixed(1)}, ${tx.toFixed(1)} ${ty.toFixed(1)}`
+                            );
+                        }
+                    };
+
+                    const t1 = rel('codeTarget1'), n1 = rel('codeNote1');
+                    if (t1 && n1) {
+                        const sx = n1.left + Math.min(84, n1.width * 0.25);
+                        const sy = n1.top - 3;
+                        const tx = t1.left + t1.width * 0.72;
+                        const ty = t1.top - 6;
+                        const archTop = Math.min(sy, ty) - 44;
+                        setArrow(1, sx, sy, sx - 28, archTop, tx + 34, archTop, tx, ty);
+                    }
+
+                    const t2 = rel('codeTarget2'), n2 = rel('codeNote2');
+                    if (t2 && n2) {
+                        const sx = n2.left - 3;
+                        const sy = n2.top + n2.height * 0.45;
+                        const tx = t2.right + 10;
+                        const ty = t2.top + t2.height * 0.5;
+                        const dx = Math.max(40, (sx - tx) * 0.48);
+                        setArrow(2, sx, sy, sx - dx, sy + 14, tx + dx, ty + 2, tx, ty);
+                    }
+
+                    const t3 = rel('codeTarget3'), n3 = rel('codeNote3');
+                    if (t3 && n3) {
+                        const sx = n3.left - 3;
+                        const sy = n3.top + n3.height * 0.45;
+                        const tx = t3.right + 10;
+                        const ty = t3.top + t3.height * 0.5;
+                        const gap = Math.max(80, sx - tx);
+                        setArrow(3, sx, sy, sx - Math.min(72, gap * 0.25), Math.min(sy - 26, ty + 24), tx + gap * 0.48, ty, tx, ty);
+                    }
+
+                    const t4 = rel('codeTarget4'), n4 = rel('codeNote4');
+                    if (t4 && n4) {
+                        const sx = n4.left - 3;
+                        const sy = n4.top + n4.height * 0.48;
+                        const tx = t4.right + 10;
+                        const ty = t4.top + t4.height * 0.5;
+                        const dx = Math.max(40, (sx - tx) * 0.48);
+                        setArrow(4, sx, sy, sx - dx, sy + 18, tx + dx, ty - 6, tx, ty);
+                    }
+                };
+
+                layoutArrows();
+                if (typeof ResizeObserver !== 'undefined') {
+                    new ResizeObserver(layoutArrows).observe(luckyDiagram);
+                }
+                if (document.fonts && document.fonts.ready) {
+                    document.fonts.ready.then(layoutArrows);
+                }
+                window.addEventListener('resize', layoutArrows, { passive: true });
             }
 
             /* Click spark particles (rAF sleeps completely when no sparks are active) */
