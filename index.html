@@ -1035,30 +1035,58 @@
 
         /* Nathaniel monster slime drop-down hover */
         .card-nathaniel .card-egg {
-            z-index: 4;
+            z-index: 2;
         }
 
         .card-nathaniel .card-egg-a {
             position: absolute;
-            top: -2px;
-            left: 50%;
-            width: clamp(150px, 56%, 215px);
-            height: 112px;
-            background: url("images/Goop.webp") no-repeat center top / contain;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 52%;
+            background: url("images/Goop.webp") no-repeat center top / 100% 100%;
             opacity: 0;
-            transform: translate3d(-50%, -105%, 0) scale(.9);
+            transform: translate3d(0, -100%, 0);
             transform-origin: top center;
             transition:
-                transform .6s var(--ease-spring),
-                opacity .25s ease;
+                transform .65s var(--ease-out-expo),
+                opacity .3s ease;
             filter: drop-shadow(0 8px 14px rgba(0, 0, 0, .5));
         }
 
         .card-nathaniel:hover .card-egg-a,
         .card-nathaniel:focus-within .card-egg-a,
         .card-nathaniel.egg-active .card-egg-a {
-            opacity: .92;
-            transform: translate3d(-50%, 0, 0) scale(1);
+            opacity: .72;
+            transform: translate3d(0, 0, 0);
+        }
+
+        .card-nathaniel:hover .card-photo,
+        .card-nathaniel:focus-within .card-photo,
+        .card-nathaniel.egg-active .card-photo {
+            border-color: rgba(154, 232, 48, .48);
+            box-shadow:
+                0 0 42px rgba(154, 232, 48, .22),
+                0 0 80px rgba(0, 0, 0, .65);
+        }
+
+        .card-nathaniel:hover .card-photo-ring,
+        .card-nathaniel:focus-within .card-photo-ring,
+        .card-nathaniel.egg-active .card-photo-ring {
+            border-color: rgba(154, 232, 48, .22);
+        }
+
+        .card-nathaniel:hover .card-name,
+        .card-nathaniel:focus-within .card-name,
+        .card-nathaniel.egg-active .card-name {
+            text-shadow: 0 2px 14px rgba(0, 0, 0, .9), 0 0 22px rgba(0, 0, 0, .75);
+        }
+
+        .card-nathaniel:hover .card-bio,
+        .card-nathaniel:focus-within .card-bio,
+        .card-nathaniel.egg-active .card-bio {
+            background: rgba(8, 5, 4, .74);
+            border-color: rgba(154, 232, 48, .24);
         }
 
         /* Kevin bok choy easter egg */
@@ -1297,19 +1325,20 @@
             top: 100%;
             left: -50%;
             border-radius: 40%;
-            transition: transform 1s var(--ease-out-expo), opacity 0.45s;
+            transition: top 1s var(--ease-out-expo), opacity 0.45s ease;
             opacity: 0;
         }
 
         .card-conner .card-egg-a {
-            background: rgba(240, 160, 48, 0.11);
+            background: rgba(240, 160, 48, 0.14);
             animation: connerJuice 6s linear infinite;
             animation-play-state: paused;
         }
 
         .card-conner .card-egg-b {
-            background: rgba(226, 85, 53, 0.08);
+            background: rgba(226, 85, 53, 0.10);
             border-radius: 45%;
+            transition-delay: 0.08s;
             animation: connerJuice 4s linear infinite reverse;
             animation-play-state: paused;
         }
@@ -1317,6 +1346,7 @@
         .card-conner:hover .card-egg-a,
         .card-conner:focus-within .card-egg-a,
         .card-conner.egg-active .card-egg-a {
+            top: 40%;
             opacity: 1;
             animation-play-state: running;
         }
@@ -1324,17 +1354,77 @@
         .card-conner:hover .card-egg-b,
         .card-conner:focus-within .card-egg-b,
         .card-conner.egg-active .card-egg-b {
+            top: 50%;
             opacity: 1;
             animation-play-state: running;
         }
 
         @keyframes connerJuice {
             0% {
-                transform: translate3d(0, -56%, 0) rotate(0deg);
+                transform: rotate(0deg);
             }
 
             100% {
-                transform: translate3d(0, -56%, 0) rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Tehem crimson-gold spirit aura easter egg */
+        .card-tehem:hover,
+        .card-tehem.egg-active {
+            border-color: rgba(226, 85, 53, .32);
+            box-shadow:
+                0 22px 58px rgba(0, 0, 0, .6),
+                0 0 76px rgba(226, 85, 53, .12),
+                inset 0 1px 0 rgba(255, 210, 170, .2);
+        }
+
+        .card-tehem .card-egg-a,
+        .card-tehem .card-egg-b {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -20%;
+            height: 75%;
+            opacity: 0;
+            transition: opacity .5s ease, transform .8s var(--ease-out-expo);
+            transform: translate3d(0, 30px, 0);
+        }
+
+        .card-tehem .card-egg-a {
+            background:
+                radial-gradient(circle at 24% 78%, rgba(240, 160, 48, .18) 0%, transparent 28%),
+                radial-gradient(circle at 76% 68%, rgba(226, 85, 53, .22) 0%, transparent 32%),
+                radial-gradient(circle at 50% 92%, rgba(226, 85, 53, .16) 0%, transparent 55%);
+            animation: tehemLift 4.2s ease-in-out infinite alternate;
+            animation-play-state: paused;
+        }
+
+        .card-tehem .card-egg-b {
+            background:
+                radial-gradient(circle at 38% 58%, rgba(255, 214, 153, .14) 0%, transparent 18%),
+                radial-gradient(circle at 66% 48%, rgba(240, 160, 48, .16) 0%, transparent 20%);
+            animation: tehemLift 3.4s ease-in-out infinite alternate-reverse;
+            animation-play-state: paused;
+        }
+
+        .card-tehem:hover .card-egg-a,
+        .card-tehem:focus-within .card-egg-a,
+        .card-tehem.egg-active .card-egg-a,
+        .card-tehem:hover .card-egg-b,
+        .card-tehem:focus-within .card-egg-b,
+        .card-tehem.egg-active .card-egg-b {
+            opacity: 1;
+            animation-play-state: running;
+        }
+
+        @keyframes tehemLift {
+            0% {
+                transform: translate3d(0, 18px, 0) scale(.96);
+            }
+
+            100% {
+                transform: translate3d(0, -28px, 0) scale(1.06);
             }
         }
 
@@ -1475,6 +1565,216 @@
             color: var(--amber);
             font-weight: 600;
             text-shadow: 0 0 18px rgba(240, 160, 48, .25);
+        }
+
+        .robot-videos {
+            max-width: 680px;
+            margin: 48px auto 0;
+        }
+
+        .robot-videos-header {
+            margin-bottom: 24px;
+        }
+
+        .robot-videos-title {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .video-card {
+            padding: 20px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .video-card:hover {
+            transform: none;
+        }
+
+        .video-wrap {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            background: #080403;
+            border: 1px solid rgba(255, 190, 130, .1);
+            margin-bottom: 16px;
+        }
+
+        .video-wrap video {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: contain;
+            background: #080403;
+        }
+
+        .video-meta {
+            position: relative;
+            z-index: 2;
+        }
+
+        .video-meta h4 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.08rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .video-meta p {
+            font-size: .88rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* Innovation — WaiCheck */
+        .innovation-top {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+            gap: 28px;
+            align-items: stretch;
+            margin-bottom: 28px;
+        }
+
+        .innovation-overview {
+            padding: 34px 32px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: left;
+        }
+
+        .innovation-overview:hover {
+            transform: translateY(-4px);
+        }
+
+        .innovation-overview-body {
+            position: relative;
+            z-index: 2;
+        }
+
+        .innovation-kicker {
+            font-size: .75rem;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 10px;
+        }
+
+        .innovation-overview h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 14px;
+        }
+
+        .innovation-overview p {
+            font-size: .95rem;
+            line-height: 1.75;
+            color: var(--text-secondary);
+            margin-bottom: 14px;
+        }
+
+        .innovation-stats {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .innovation-stat {
+            padding: 14px 12px;
+            border-radius: var(--radius-sm);
+            background: rgba(255, 190, 130, .03);
+            border: 1px solid rgba(255, 190, 130, .08);
+            text-align: center;
+        }
+
+        .innovation-stat strong {
+            display: block;
+            font-family: 'Sora', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--amber);
+            margin-bottom: 3px;
+        }
+
+        .innovation-stat span {
+            display: block;
+            font-size: .74rem;
+            color: var(--text-dim);
+            letter-spacing: .5px;
+        }
+
+        .innovation-workflow {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+            gap: 20px;
+        }
+
+        .workflow-step {
+            padding: 24px 22px;
+            border-radius: var(--radius-md);
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .workflow-num {
+            position: relative;
+            z-index: 2;
+            font-family: 'Sora', sans-serif;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 8px;
+        }
+
+        .workflow-step h4 {
+            position: relative;
+            z-index: 2;
+            font-family: 'Sora', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .workflow-step p {
+            position: relative;
+            z-index: 2;
+            font-size: .88rem;
+            line-height: 1.65;
+            color: var(--text-secondary);
+        }
+
+        .innovation-sources {
+            margin-top: 22px;
+            text-align: center;
+            font-size: .82rem;
+            color: var(--text-dim);
+        }
+
+        .innovation-sources strong {
+            color: var(--text-secondary);
+            font-weight: 600;
         }
 
         .achievement-grid {
@@ -1853,23 +2153,11 @@
 
         @media (min-width: 1080px) {
             .team-grid {
-                grid-template-columns: repeat(6, 1fr);
-            }
-
-            .team-card {
-                grid-column: span 2;
-            }
-
-            .team-card:nth-child(4) {
-                grid-column: 2 / span 2;
-            }
-
-            .team-card:nth-child(5) {
-                grid-column: 4 / span 2;
+                grid-template-columns: repeat(3, 1fr);
             }
         }
 
-        @media (max-width: 960px) {
+        @media (max-width: 1020px) {
             nav {
                 padding: 9px 18px;
             }
@@ -1880,8 +2168,8 @@
             }
 
             .nav-links a {
-                font-size: .78rem;
-                padding: 6px 10px;
+                font-size: .76rem;
+                padding: 6px 9px;
             }
         }
 
@@ -1917,7 +2205,7 @@
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 860px) {
             :root {
                 --glass-blur: 6px;
             }
@@ -1976,8 +2264,13 @@
 
             .about-text,
             .robot-desc,
+            .innovation-overview,
             .footer-glass {
                 padding: 26px 22px;
+            }
+
+            .innovation-stats {
+                grid-template-columns: 1fr;
             }
 
             section {
@@ -2045,6 +2338,7 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#team">Team</a></li>
                 <li><a href="#robot">Robot</a></li>
+                <li><a href="#innovation">Innovation</a></li>
                 <li><a href="#achievements">Achievements</a></li>
                 <li><a href="#timeline">Timeline</a></li>
             </ul>
@@ -2068,6 +2362,7 @@
         <a href="#about">About</a>
         <a href="#team">Team</a>
         <a href="#robot">Robot</a>
+        <a href="#innovation">Innovation</a>
         <a href="#achievements">Achievements</a>
         <a href="#timeline">Timeline</a>
     </div>
@@ -2120,7 +2415,7 @@
             <div class="section-header reveal">
                 <span class="section-label">The Squad</span>
                 <h2 class="section-title">Meet Our Team</h2>
-                <p class="section-subtitle">Five minds, one mission — engineering tomorrow's solutions today.</p>
+                <p class="section-subtitle">Six minds, one mission — engineering tomorrow's solutions today.</p>
             </div>
 
             <div class="team-grid">
@@ -2248,6 +2543,31 @@
                         </p>
                     </div>
                 </div>
+
+                <div class="team-card glass reveal stagger-3 card-tehem">
+                    <span class="glass-shimmer"></span>
+                    <span class="glass-highlight-bar"></span>
+
+                    <div class="card-egg" aria-hidden="true">
+                        <div class="card-egg-a"></div>
+                        <div class="card-egg-b"></div>
+                    </div>
+
+                    <div class="card-content">
+                        <div class="card-photo">
+                            <div class="card-photo-ring"></div>
+                            <picture>
+                                <source srcset="images/Tehem.webp" type="image/webp">
+                                <img src="Tehem.png" alt="Tehem" loading="lazy" decoding="async" width="512" height="512">
+                            </picture>
+                        </div>
+                        <h3 class="card-name">Tehem</h3>
+                        <p class="card-role">Core Values Specialist</p>
+                        <p class="card-bio">
+                            Hello my name is Tehem, and I am the core values specialist. I am the newest member of the team. I bring great joy to the people I meet and I also lift up our team spirit. I joined 2 weeks before regionals. I am new and am always looking to improve.
+                        </p>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -2262,7 +2582,7 @@
                     <div class="robot-frame-overlay"></div>
                     <picture>
                         <source id="robotMainWebp" srcset="images/Botmobile.webp" type="image/webp">
-                        <img id="robotMainImage" src="Botmobile.png" alt="Botmobile main view" loading="lazy" decoding="async">
+                        <img id="robotMainImage" src="Botmobile.png" alt="Phantom Bot main view" loading="lazy" decoding="async">
                     </picture>
                 </div>
 
@@ -2270,73 +2590,188 @@
                     <span class="glass-shimmer"></span>
                     <span class="glass-highlight-bar"></span>
 
-                    <button type="button" class="robot-thumb active" aria-pressed="true" data-webp="images/Botmobile.webp" data-src="Botmobile.png" data-alt="Botmobile main view" data-caption="Botmobile main view">
+                    <button type="button" class="robot-thumb active" aria-pressed="true" data-webp="images/Botmobile.webp" data-src="Botmobile.png" data-alt="Phantom Bot main view" data-caption="Phantom Bot main view">
                         <picture>
                             <source srcset="images/Botmobile-thumb.webp" type="image/webp">
-                            <img src="Botmobile.png" alt="Botmobile main view thumbnail" loading="lazy" decoding="async" width="240" height="134">
+                            <img src="Botmobile.png" alt="Phantom Bot main view thumbnail" loading="lazy" decoding="async" width="240" height="134">
                         </picture>
                     </button>
 
-                    <button type="button" class="robot-thumb" aria-pressed="false" data-webp="images/1.webp" data-src="1.png" data-alt="Botmobile view 1" data-caption="Botmobile view 1">
+                    <button type="button" class="robot-thumb" aria-pressed="false" data-webp="images/1.webp" data-src="1.png" data-alt="Phantom Bot view 1" data-caption="Phantom Bot view 1">
                         <picture>
                             <source srcset="images/1-thumb.webp" type="image/webp">
-                            <img src="1.png" alt="Botmobile view 1 thumbnail" loading="lazy" decoding="async" width="240" height="321">
+                            <img src="1.png" alt="Phantom Bot view 1 thumbnail" loading="lazy" decoding="async" width="240" height="321">
                         </picture>
                     </button>
 
-                    <button type="button" class="robot-thumb" aria-pressed="false" data-webp="images/2.webp" data-src="2.png" data-alt="Botmobile view 2" data-caption="Botmobile view 2">
+                    <button type="button" class="robot-thumb" aria-pressed="false" data-webp="images/2.webp" data-src="2.png" data-alt="Phantom Bot view 2" data-caption="Phantom Bot view 2">
                         <picture>
                             <source srcset="images/2-thumb.webp" type="image/webp">
-                            <img src="2.png" alt="Botmobile view 2 thumbnail" loading="lazy" decoding="async" width="240" height="321">
+                            <img src="2.png" alt="Phantom Bot view 2 thumbnail" loading="lazy" decoding="async" width="240" height="321">
                         </picture>
                     </button>
 
-                    <button type="button" class="robot-thumb" aria-pressed="false" data-webp="images/3.webp" data-src="3.png" data-alt="Botmobile view 3" data-caption="Botmobile view 3">
+                    <button type="button" class="robot-thumb" aria-pressed="false" data-webp="images/3.webp" data-src="3.png" data-alt="Phantom Bot view 3" data-caption="Phantom Bot view 3">
                         <picture>
                             <source srcset="images/3-thumb.webp" type="image/webp">
-                            <img src="3.png" alt="Botmobile view 3 thumbnail" loading="lazy" decoding="async" width="240" height="321">
+                            <img src="3.png" alt="Phantom Bot view 3 thumbnail" loading="lazy" decoding="async" width="240" height="321">
                         </picture>
                     </button>
 
-                    <button type="button" class="robot-thumb" aria-pressed="false" data-webp="images/4.webp" data-src="4.png" data-alt="Botmobile view 4" data-caption="Botmobile view 4">
+                    <button type="button" class="robot-thumb" aria-pressed="false" data-webp="images/4.webp" data-src="4.png" data-alt="Phantom Bot view 4" data-caption="Phantom Bot view 4">
                         <picture>
                             <source srcset="images/4-thumb.webp" type="image/webp">
-                            <img src="4.png" alt="Botmobile view 4 thumbnail" loading="lazy" decoding="async" width="240" height="321">
+                            <img src="4.png" alt="Phantom Bot view 4 thumbnail" loading="lazy" decoding="async" width="240" height="321">
                         </picture>
                     </button>
 
-                    <button type="button" class="robot-thumb" aria-pressed="false" data-webp="images/5.webp" data-src="5.png" data-alt="Botmobile view 5" data-caption="Botmobile view 5">
+                    <button type="button" class="robot-thumb" aria-pressed="false" data-webp="images/5.webp" data-src="5.png" data-alt="Phantom Bot view 5" data-caption="Phantom Bot view 5">
                         <picture>
                             <source srcset="images/5-thumb.webp" type="image/webp">
-                            <img src="5.png" alt="Botmobile view 5 thumbnail" loading="lazy" decoding="async" width="240" height="321">
+                            <img src="5.png" alt="Phantom Bot view 5 thumbnail" loading="lazy" decoding="async" width="240" height="321">
                         </picture>
                     </button>
 
-                    <button type="button" class="robot-thumb" aria-pressed="false" data-webp="images/6.webp" data-src="6.png" data-alt="Botmobile view 6" data-caption="Botmobile view 6">
+                    <button type="button" class="robot-thumb" aria-pressed="false" data-webp="images/6.webp" data-src="6.png" data-alt="Phantom Bot view 6" data-caption="Phantom Bot view 6">
                         <picture>
                             <source srcset="images/6-thumb.webp" type="image/webp">
-                            <img src="6.png" alt="Botmobile view 6 thumbnail" loading="lazy" decoding="async" width="240" height="321">
+                            <img src="6.png" alt="Phantom Bot view 6 thumbnail" loading="lazy" decoding="async" width="240" height="321">
                         </picture>
                     </button>
 
-                    <button type="button" class="robot-thumb" aria-pressed="false" data-webp="images/7.webp" data-src="7.png" data-alt="Botmobile view 7" data-caption="Botmobile view 7">
+                    <button type="button" class="robot-thumb" aria-pressed="false" data-webp="images/7.webp" data-src="7.png" data-alt="Phantom Bot view 7" data-caption="Phantom Bot view 7">
                         <picture>
                             <source srcset="images/7-thumb.webp" type="image/webp">
-                            <img src="7.png" alt="Botmobile view 7 thumbnail" loading="lazy" decoding="async" width="240" height="321">
+                            <img src="7.png" alt="Phantom Bot view 7 thumbnail" loading="lazy" decoding="async" width="240" height="321">
                         </picture>
                     </button>
                 </div>
 
-                <p class="robot-caption reveal stagger-3" id="robotImageCaption">Botmobile main view</p>
+                <p class="robot-caption reveal stagger-3" id="robotImageCaption">Phantom Bot main view</p>
             </div>
 
             <div class="robot-desc glass glass-accent reveal stagger-4">
                 <span class="glass-shimmer"></span>
                 <span class="glass-highlight-bar"></span>
                 <p>
-                    Our robot, <span class="robot-name">Botmobile</span>, is the result of countless hours of design, testing, and refinement. Built with precision engineering and innovative attachments, Botmobile can navigate complex courses and complete challenging missions with remarkable accuracy. Its modular design allows for quick changes between competition rounds, and the gallery above shows additional views of the bot.
+                    Our robot, <span class="robot-name">Phantom Bot</span>, is the result of countless hours of design, testing, and refinement. Built with precision engineering and innovative attachments, Phantom Bot can navigate complex courses and complete challenging missions with remarkable accuracy. Its modular design allows for quick changes between competition rounds, and the gallery above shows additional views of the bot.
                 </p>
             </div>
+
+            <div class="robot-videos reveal">
+                <div class="robot-videos-header">
+                    <span class="section-label">In Action</span>
+                    <h3 class="robot-videos-title">Phantom Bot Demo</h3>
+                </div>
+
+                <article class="video-card glass">
+                    <span class="glass-shimmer"></span>
+                    <span class="glass-highlight-bar"></span>
+                    <div class="video-wrap">
+                        <video class="robot-video" controls preload="metadata" playsinline>
+                            <source src="PIDRobotDemo.mp4" type="video/mp4">
+                            Your browser does not support HTML5 video.
+                        </video>
+                    </div>
+                    <div class="video-meta">
+                        <h4>PID Robot Demo</h4>
+                        <p>Precision PID control and autonomous navigation test run with Phantom Bot.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="innovation">
+            <div class="section-header reveal">
+                <span class="section-label">Innovation Project</span>
+                <h2 class="section-title">WaiCheck</h2>
+                <p class="section-subtitle">A handheld, solar-powered river safety scanner built for everyday explorers, swimmers, fishers, and wildlife protection.</p>
+            </div>
+
+            <div class="innovation-top">
+                <article class="video-card glass reveal stagger-1">
+                    <span class="glass-shimmer"></span>
+                    <span class="glass-highlight-bar"></span>
+                    <div class="video-wrap">
+                        <video class="robot-video" controls preload="metadata" playsinline>
+                            <source src="WaiCheck.mp4" type="video/mp4">
+                            Your browser does not support HTML5 video.
+                        </video>
+                    </div>
+                    <div class="video-meta">
+                        <h4>WaiCheck Innovation Demo</h4>
+                        <p>Testing river purity, bacteria, pollution, and temperature in about 40 seconds before anyone steps into the water.</p>
+                    </div>
+                </article>
+
+                <div class="innovation-overview glass glass-accent reveal stagger-2">
+                    <span class="glass-shimmer"></span>
+                    <span class="glass-highlight-bar"></span>
+                    <div class="innovation-overview-body">
+                        <p class="innovation-kicker">Detect · Alert · Respond</p>
+                        <h3>Water Safety for People &amp; Wildlife</h3>
+                        <p>
+                            When visiting a river for the first time, it is hard to tell whether the water is safe to swim in, healthy for native fish, or clean enough for wildlife to drink. Existing testing equipment is slow, expensive, and built for councils rather than everyday families and kids.
+                        </p>
+                        <p>
+                            WaiCheck solves this with an affordable, welded metal handheld device powered by top-mounted solar panels with a 10-day battery and zero gas. Simply hold WaiCheck half-submerged in slow-flowing water for ~20 seconds, and within ~40 seconds total the screen alerts you with clear river safety readings.
+                        </p>
+                    </div>
+
+                    <div class="innovation-stats">
+                        <div class="innovation-stat">
+                            <strong>~40s</strong>
+                            <span>Total Scan Time</span>
+                        </div>
+                        <div class="innovation-stat">
+                            <strong>10 Days</strong>
+                            <span>Solar Battery Life</span>
+                        </div>
+                        <div class="innovation-stat">
+                            <strong>3 Checks</strong>
+                            <span>Pollution · Bacteria · Temp</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="innovation-workflow">
+                <div class="workflow-step glass reveal stagger-1">
+                    <span class="glass-shimmer"></span>
+                    <span class="glass-highlight-bar"></span>
+                    <span class="workflow-num">01 · Problem</span>
+                    <h4>Identify &amp; Research</h4>
+                    <p>Connor and Kian identified the river safety challenge, and the entire team studied water pollution, bacteria, and temperature impacts.</p>
+                </div>
+
+                <div class="workflow-step glass reveal stagger-2">
+                    <span class="glass-shimmer"></span>
+                    <span class="glass-highlight-bar"></span>
+                    <span class="workflow-num">02 · Discovery</span>
+                    <h4>Survey &amp; Solution</h4>
+                    <p>Nathaniel and Tehem evaluated existing testing tools while Kevin and Liam surveyed people on how water safety affects their community.</p>
+                </div>
+
+                <div class="workflow-step glass reveal stagger-3">
+                    <span class="glass-shimmer"></span>
+                    <span class="glass-highlight-bar"></span>
+                    <span class="workflow-num">03 · Fabrication</span>
+                    <h4>Welded Build &amp; Electronics</h4>
+                    <p>Instead of basic LEGO, blueprints were taken to Palmerston North to weld the casing, while Liam, Kevin, Kian, and Connor built and wired the sensors.</p>
+                </div>
+
+                <div class="workflow-step glass reveal stagger-4">
+                    <span class="glass-shimmer"></span>
+                    <span class="glass-highlight-bar"></span>
+                    <span class="workflow-num">04 · Iteration</span>
+                    <h4>Test, Solar &amp; Share</h4>
+                    <p>Connor and Nathaniel tested and refined prototypes, added solar panels for the 10-day battery from user feedback, and shared WaiCheck with the community.</p>
+                </div>
+            </div>
+
+            <p class="innovation-sources reveal">
+                <strong>Research Sources:</strong> Yawawawa · Hygger · World Health Organization (who.int)
+            </p>
         </section>
 
         <section id="achievements">
@@ -2475,7 +2910,7 @@
                         <span class="glass-highlight-bar"></span>
                         <div class="timeline-date">January 2026</div>
                         <div class="timeline-title">2026 Comeback</div>
-                        <div class="timeline-desc">We are preparing for the 2026 season with our new robot, Botmobile, and a stronger vision for what comes next.</div>
+                        <div class="timeline-desc">We are preparing for the 2026 season with our new robot, Phantom Bot, and a stronger vision for what comes next.</div>
                     </div>
                 </div>
             </div>
@@ -2776,11 +3211,17 @@
                 });
 
                 window.addEventListener('resize', () => {
-                    if (window.innerWidth > 768) setMenuState(false);
+                    if (window.innerWidth > 860) setMenuState(false);
                 }, { passive: true });
             }
 
             /* Smooth delta-time auto-scroll that fully sleeps when paused/hidden */
+            const robotVideos = [...document.querySelectorAll('.robot-video')];
+
+            function isAnyVideoPlaying() {
+                return robotVideos.some((video) => !video.paused && !video.ended);
+            }
+
             let autoDirection = 1;
             let autoSpeedPxPerSec = 72;
             let autoRunning = !reduceMotion;
@@ -2818,12 +3259,12 @@
 
             function scheduleAutoScroll(delayMs = 0) {
                 stopAutoScrollLoop();
-                if (!autoRunning || document.hidden || document.body.classList.contains('menu-open')) return;
+                if (!autoRunning || document.hidden || document.body.classList.contains('menu-open') || isAnyVideoPlaying()) return;
 
                 if (delayMs > 0) {
                     autoResumeTimer = setTimeout(() => {
                         autoResumeTimer = 0;
-                        if (autoRunning && !document.hidden && !document.body.classList.contains('menu-open')) {
+                        if (autoRunning && !document.hidden && !document.body.classList.contains('menu-open') && !isAnyVideoPlaying()) {
                             virtualScrollY = window.scrollY;
                             lastSetScrollY = null;
                             lastFrameTime = 0;
@@ -2844,7 +3285,7 @@
 
             function autoScrollStep(now) {
                 autoRafId = 0;
-                if (!autoRunning || document.hidden || document.body.classList.contains('menu-open')) return;
+                if (!autoRunning || document.hidden || document.body.classList.contains('menu-open') || isAnyVideoPlaying()) return;
 
                 if (maxScrollY <= 2) {
                     lastFrameTime = now;
@@ -2883,13 +3324,28 @@
                 }
 
                 lastSetScrollY = virtualScrollY;
-                window.scrollTo({
-                    top: virtualScrollY,
-                    behavior: 'instant'
-                });
+                window.scrollTo(0, virtualScrollY);
 
                 autoRafId = requestAnimationFrame(autoScrollStep);
             }
+
+            robotVideos.forEach((video) => {
+                video.addEventListener('play', () => {
+                    robotVideos.forEach((other) => {
+                        if (other !== video && !other.paused) other.pause();
+                    });
+                    stopAutoScrollLoop();
+                });
+
+                const resumeIfIdle = () => {
+                    if (autoRunning && !isAnyVideoPlaying()) {
+                        scheduleAutoScroll(1800);
+                    }
+                };
+
+                video.addEventListener('pause', resumeIfIdle);
+                video.addEventListener('ended', resumeIfIdle);
+            });
 
             updateIndicator();
             if (autoRunning) {
@@ -2994,7 +3450,7 @@
             const selectRobotThumb = (thumb) => {
                 const webp = thumb.dataset.webp;
                 const src = thumb.dataset.src;
-                const alt = thumb.dataset.alt || 'Botmobile image';
+                const alt = thumb.dataset.alt || 'Phantom Bot image';
                 const caption = thumb.dataset.caption || '';
 
                 if (!src || !robotMainImage) return;
